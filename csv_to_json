@@ -2,8 +2,7 @@
 
 python /app/src/csv_to_json.py
 
-# mv input/*.json ../output
-mv /data/input/*.json /data/input/output
+mv /data/input/*.json /data/output/
 
 # if exit 0
 echo 'Done :)'
