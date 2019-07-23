@@ -1,5 +1,6 @@
 FROM python:3.7
-COPY ./csv_to_json /usr/bin
+#COPY ./csv_to_json /usr/bin
+COPY ./bin/* /usr/bin/
 COPY . /app
 WORKDIR /app
 RUN apt-get -y update; apt-get -y upgrade
