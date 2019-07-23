@@ -1,14 +1,4 @@
 #!/usr/bin/env bash
-checkinput() {
-  if [ $# -eq 0 ]
-  then
-    error "No arguments supplied" && exit 100
-  else
-    build
-    run $1 $2 $3
-  fi
-}
-checkinput
 
 # Output colors
 NORMAL="\\033[0;39m"
@@ -17,7 +7,7 @@ BLUE="\\033[1;34m"
 
 # Names to identify images and containers of this app
 IMAGE_NAME='featuremap_util'
-CONTAINER_NAME="jsonic"
+CONTAINER_NAME="jsonic" # NAME TBA
 
 log() {
   printf "$BLUE > $1$NORMAL\n"
@@ -42,3 +32,14 @@ run() {
   docker run --name "$CONTAINER_NAME" -v $1:/data/input -v $2:/data/output -v $3:/data/wsi -itd "$IMAGE_NAME"
   # docker run --name "$CONTAINER_NAME" -v $(pwd)/input:/data/input -v $(pwd)/output:/data/output -itd "$IMAGE_NAME"
 }
+
+checkinput() {
+  if [[ $# -eq 0 ]]
+  then
+    error "No arguments supplied" && exit 100
+  else
+    build
+    run $1 $2 $3
+  fi
+}
+checkinput
