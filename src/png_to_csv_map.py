@@ -92,7 +92,7 @@ def main():
             print('File not found: ', filepath)
             continue
 
-        w_wsi, h_wsi, w_patch, h_patch = get_patch_size(slide_ID)
+        w_wsi, h_wsi, w_patch, h_patch = get_patch_size(filepath)
         # print(w_wsi, w_png, "|", h_wsi, h_png)
 
         res_file = os.path.join(out_fol, slide_ID + '.csv')
