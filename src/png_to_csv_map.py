@@ -14,13 +14,13 @@ import openslide
 
 png_fol = '/data/input'
 out_fol = '/data/output'
-svs_fol = '/data/svs'
+wsi_fol = '/data/wsi'
 slide_ext = '.svs'
 
 
-def get_patch_size(slide_ID):
+def get_patch_size(filepath):
     pw_20X = 100
-    slide = openslide.OpenSlide(os.path.join(svs_fol, slide_ID + slide_ext))
+    slide = openslide.OpenSlide(filepath)
     w_wsi, h_wsi = slide.dimensions
     magx = mag_x(slide)
     magy = mag_y(slide)
@@ -49,8 +49,8 @@ def mag_y(slide):
     return mag
 
 
-def get_patch_size2(slide_ID):
-    slide = openslide.OpenSlide(os.path.join(svs_fol, slide_ID + slide_ext))
+def get_patch_size2(filepath):
+    slide = openslide.OpenSlide(filepath)
     w_wsi = slide.dimensions[0]
     h_wsi = slide.dimensions[1]
 
@@ -63,8 +63,8 @@ def get_patch_size2(slide_ID):
     return w_wsi, h_wsi, w_patch, h_patch
 
 
-def get_patch_size1(slide_ID, w_png, h_png):
-    slide = openslide.OpenSlide(os.path.join(svs_fol, slide_ID + slide_ext))
+def get_patch_size1(filepath, w_png, h_png):
+    slide = openslide.OpenSlide(filepath)
     '''
     There is no information about the patch width/height from the png files.
     The width/height can be computed given the width/height of the WSI.
@@ -87,8 +87,9 @@ def main():
         h_png = png.shape[0]
         w_png = png.shape[1]
 
-        if not os.path.exists(os.path.join(svs_fol, slide_ID + slide_ext)):
-            print('File not found: ', os.path.join(svs_fol, slide_ID + slide_ext))
+        filepath = os.path.join(wsi_fol, slide_ID + slide_ext)
+        if not os.path.exists(filepath):
+            print('File not found: ', filepath)
             continue
 
         w_wsi, h_wsi, w_patch, h_patch = get_patch_size(slide_ID)
