@@ -1,6 +1,18 @@
 # featuremap_util
-PNG to JSON
 
-<!-- 
-docker run --name my_jsonify -v $HOME/git/jsonify:/app/input -itd jsonify_jsoniify
--->
+### Build
+
+```
+docker build -t featuremap_util .
+```
+
+### Run
+```
+docker run --name jsonic -v $(pwd)/input:/data/input -v $(pwd)/output:/data/output -itd featuremap_util
+```
+
+### CSV to JSON
+
+```
+docker exec jsonic csv_to_json
+```
