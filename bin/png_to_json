@@ -1,16 +1,5 @@
 #!/bin/bash
 
 png_to_csv
-
 csv_to_json
-
 mv /data/input/*.json /data/output/
-
-if [[ $? -eq 0 ]]
-then
-  echo "Done."
-  exit 0
-else
-  echo "Something bad happened." >&2
-  exit 1
-fi

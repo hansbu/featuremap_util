@@ -4,7 +4,6 @@ COPY ./bin/* /usr/bin/
 COPY . /app
 WORKDIR /app
 RUN apt-get -y update; apt-get -y upgrade
-RUN apt-get -y install openslide-tools python3-openslide vim
-#RUN apt-get -y install build-essential cmake unzip pkg-config
+RUN apt-get -y install vim openslide-tools python3-openslide python3-opencv
 RUN pip install -r requirements.txt
 WORKDIR /app
