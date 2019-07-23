@@ -73,10 +73,6 @@ def save_file(filename, data1, data2):
 
 
 if __name__ == '__main__':
-    # if len(sys.argv) == 1:
-    #     print('File name is...?')
-    #     exit(1)
-
     for file in os.listdir("/data/input"):
         if file.endswith(".csv"):
             f = os.path.join("/data/input", file)
@@ -84,11 +80,4 @@ if __name__ == '__main__':
             meta = get_metadata(f)
             data = get_data(f)
             save_file(f.replace("csv", "json"), meta, data)
-
-    # start_clock = perf_counter()
-    # f = sys.argv[1]
-    # print(f)
-
-    # duration = perf_counter() - start_clock
-    # print(duration)
-
+    print('Done.')

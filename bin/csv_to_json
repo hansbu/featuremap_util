@@ -1,13 +1,4 @@
 #!/bin/bash
 
 python /app/src/csv_to_json.py
-mv /data/input/*.json /data/output/
-
-if [[ $? -eq 0 ]]
-then
-  echo "Done."
-  exit 0
-else
-  echo "Something bad happened." >&2
-  exit 1
-fi
+mv /data/input/*.json /data/output/ || exit 0

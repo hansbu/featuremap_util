@@ -19,7 +19,7 @@ CONTAINER_NAME="jsonic" # NAME TBA
 build() {
   docker build -t $IMAGE_NAME .
   docker run --name "$CONTAINER_NAME" -v $1:/data/input -v $2:/data/output -v $3:/data/wsi -itd "$IMAGE_NAME"
-  # docker run --name "$CONTAINER_NAME" -v $(pwd)/input:/data/input -v $(pwd)/output:/data/output -itd "$IMAGE_NAME"
+  # docker run --name "$CONTAINER_NAME" -v $(pwd)/input:/data/input -v $(pwd)/output:/data/output -v $HOME/images1/brca:/data/wsi -itd "$IMAGE_NAME"
 }
 
 build $1 $2 $3
