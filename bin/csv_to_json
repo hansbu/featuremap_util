@@ -2,8 +2,6 @@
 
 python /app/src/csv_to_json.py
 
-mv /data/input/*.json /data/output/
-
 if [[ $? -eq 0 ]]
 then
   echo "Done."
