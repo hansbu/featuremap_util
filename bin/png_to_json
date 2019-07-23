@@ -1,5 +1,11 @@
 #!/bin/bash
 
+# Step 1
 png_to_csv
-csv_to_json
-mv /data/input/*.json /data/output/
+
+if [ $? -eq 0 ]
+then
+  # Step 2
+  csv_to_json
+  mv /data/input/*.json /data/output/
+fi
