@@ -12,9 +12,9 @@ import os
 import cv2
 import openslide
 
-png_fol = './input'
-out_fol = './output'
-svs_fol = './svs'
+png_fol = '/data/input'
+out_fol = '/data/output'
+svs_fol = '/data/svs'
 slide_ext = '.svs'
 
 
