@@ -8,6 +8,7 @@ checkinput() {
     run $1 $2 $3
   fi
 }
+checkinput
 
 # Output colors
 NORMAL="\\033[0;39m"
@@ -30,11 +31,11 @@ error() {
 build() {
   docker build -t $IMAGE_NAME .
 
-  [ $? != 0 ] && \
+  [[ $? != 0 ]] && \
     error "Docker image build failed !" && exit 100
 
-    [ $? != 0 ] && \
-      log "Docker image build succeeded !" && exit 000
+  [[ $? == 0 ]] && \
+    log "Docker image build succeeded !" && exit 000
 }
 
 run() {
