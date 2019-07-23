@@ -1,8 +1,6 @@
 #!/bin/bash
 
-python /app/src/csv_to_json.py
-
-mv /data/input/*.json /data/output/
+python /app/src/png_to_csv_map.py
 
 if [[ $? -eq 0 ]]
 then

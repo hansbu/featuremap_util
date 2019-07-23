@@ -1,6 +1,8 @@
 #!/bin/bash
 
-python /app/src/csv_to_json.py
+png_to_csv
+
+csv_to_json
 
 mv /data/input/*.json /data/output/
 

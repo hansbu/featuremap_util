@@ -14,11 +14,11 @@ docker run --name jsonic -v $(pwd)/input:/data/input -v $(pwd)/output:/data/outp
 ### BUILD AND RUN
 
 ```
-./do.sh /path/to/input/dir /path/to/output/dir /path/to/svs/dir
+./do.sh /path/to/input/dir /path/to/output/dir /path/to/wsi/dir
 ```
 
-### CSV to JSON
+### PNG to JSON
 
 ```
-docker exec jsonic csv_to_json
+
 ```

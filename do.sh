@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+PROGNAME=$(basename "$0")
+
 # Output colors
 NORMAL="\\033[0;39m"
 RED="\\033[1;31m"
@@ -36,7 +38,9 @@ run() {
 checkinput() {
   if [[ $# -eq 0 ]]
   then
-    error "No arguments supplied" && exit 100
+    error "No arguments supplied"
+    echo "usage: $PROGNAME /path/to/input/dir /path/to/output/dir /path/to/wsi/dir"
+    exit 100
   else
     build
     run $1 $2 $3
