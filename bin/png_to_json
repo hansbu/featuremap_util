@@ -3,9 +3,10 @@
 # Step 1
 png_to_csv
 
-if [ $? -eq 0 ]
+if [[ $? -eq 0 ]]
 then
   # Step 2
+  mv /data/output/*.csv /data/input/ || exit 0
   csv_to_json
   mv /data/input/*.json /data/output/
 fi
