@@ -1,14 +1,16 @@
 #!/usr/bin/env python
-# SEER VTR PDAC
-
 import json
 import os
 import sys
+
 import numpy as np
 import pandas as pd
 
 
 def create_csv(input, output, red, r_name, green, g_name):
+    '''
+    File format SEER VTR PDAC pyrad
+    '''
     # Read CSV
     df = pd.read_csv(input)
 
@@ -74,6 +76,9 @@ def create_csv(input, output, red, r_name, green, g_name):
 
 
 def do_one_feature(input, output):
+    '''
+    File format TCGA pyrad
+    '''
     df = pd.read_csv(input)
 
     imw = df['image_width'].iloc[0]
@@ -87,7 +92,6 @@ def do_one_feature(input, output):
            "patch_h": str(ph),
            "png_w": str(np.ceil(imw / pw).astype(int)),
            "png_h": str(np.ceil(imh / ph).astype(int))}
-
     # print(obj)
 
     with open(output, 'w') as f:
@@ -113,25 +117,33 @@ def do_one_feature(input, output):
     modified['Cancer'] = 0
     modified['Tissue'] = 0
     modified.loc[modified['Nuclear Ratio'] > 0, ['Tissue']] = ['255']
-
     # print(modified)
-
     # modified.to_csv(output, index=False)
     with open(output, 'a') as f:
         modified.to_csv(f, mode='a', header=False, index=False)
 
 
+def check_csv(somefile, col1, col2):
+    try:
+        data = pd.DataFrame(somefile)
+        print(data[[col1, col2]])
+    except KeyError:
+        print("Could not find columns for " + col1 + " and " + col2)
+        # print("Hint: Is this for PYRAD or TCGA?")
+        exit(1)
+
+
 def process_dir(input, output):
     # Do for all files in directory:
-    # cwd = os.getcwd()
     for filename in os.listdir(input):
         if filename.endswith(".csv"):
             red = 'nuclei_ratio'
             r_name = 'Nuclear Ratio'
             green = 'fg_glcm_Correlation'
             g_name = 'Fg Glcm Correlation'
-            create_csv(os.path.join(input, filename), os.path.join(output, filename), red, r_name, green, g_name)
-            # do_one_feature(os.path.join(cwd, filename), filename + '.1')
+            f = os.path.join(input, filename)
+            check_csv(f, red, green)
+            create_csv(f, os.path.join(output, filename), red, r_name, green, g_name)
 
 
 def process_one():
