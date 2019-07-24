@@ -79,5 +79,7 @@ if __name__ == '__main__':
             # print(f)
             meta = get_metadata(f)
             data = get_data(f)
-            save_file(os.path.join(output, f.replace("csv", "json")), meta, data)
+            f = f.replace("csv", "json")
+            f = f.replace(input, output)
+            save_file(f, meta, data)
     print('Done.')
