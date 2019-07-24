@@ -99,7 +99,7 @@ def main():
         print('OUT: ' + res_file)
         if os.path.exists(res_file):
             continue
-        print(ind, fn)
+        # print(ind, fn)
 
         # Write CSV file from input image pixels
         with open(res_file, mode='w') as f:
