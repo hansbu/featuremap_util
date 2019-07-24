@@ -6,9 +6,6 @@ import sys
 import pandas as pd
 
 
-# from time import perf_counter
-
-
 def get_metadata(filename):
     my_obj = {}
     try:
@@ -73,8 +70,8 @@ def save_file(filename, data1, data2):
 
 
 if __name__ == '__main__':
-    input=sys.argv[1]
-    output=sys.argv[2]
+    input = sys.argv[1]
+    output = sys.argv[2]
     for file in os.listdir(input):
         if file.endswith(".csv"):
             f = os.path.join(input, file)
