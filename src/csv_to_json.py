@@ -76,7 +76,7 @@ if __name__ == '__main__':
     for file in os.listdir(input):
         if file.endswith(".csv"):
             f = os.path.join(input, file)
-            print(f)
+            # print(f)
             meta = get_metadata(f)
             data = get_data(f)
             save_file(os.path.join(input, f.replace("csv", "json")), meta, data)
