@@ -81,13 +81,13 @@ def main():
     # Iterate through pngs in input folder
     fns = [f for f in os.listdir(png_fol) if '.png' in f]
     for ind, fn in enumerate(fns):
-        slide_ID = fn.split('.png')[0]  # get base name
+        slide_id = fn.split('.png')[0]  # get base name
         png = cv2.imread(png_fol + '/' + fn, cv2.IMREAD_COLOR)  # Loads a color image.
         # grab the image dimensions (row, column)
         h_png = png.shape[0]
         w_png = png.shape[1]
 
-        filepath = os.path.join(wsi_fol, slide_ID + slide_ext)
+        filepath = os.path.join(wsi_fol, slide_id + slide_ext)
         if not os.path.exists(filepath):
             print('File not found: ', filepath)
             continue
@@ -95,7 +95,7 @@ def main():
         w_wsi, h_wsi, w_patch, h_patch = get_patch_size(filepath)
         # print(w_wsi, w_png, "|", h_wsi, h_png)
 
-        res_file = os.path.join(out_fol, slide_ID + '.csv')
+        res_file = os.path.join(out_fol, slide_id + '.csv')
         print('OUT: ' + res_file)
         if os.path.exists(res_file):
             continue
@@ -129,8 +129,8 @@ def main():
 
 
 if __name__ == "__main__":
-    png_fol = sys.argv[1] # input
-    out_fol = sys.argv[2] # output
-    wsi_fol = sys.argv[3] # slide
-    slide_ext = sys.argv[4] # tif, svs, etc.
+    png_fol = sys.argv[1]  # input
+    out_fol = sys.argv[2]  # output
+    wsi_fol = sys.argv[3]  # slide
+    slide_ext = sys.argv[4]  # tif, svs, etc.
     main()
