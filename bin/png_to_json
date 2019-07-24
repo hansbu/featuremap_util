@@ -1,8 +1,8 @@
 #!/bin/bash
 
-uuid=$(python -c 'import sys,uuid; sys.stdout.write(uuid.uuid4().hex)' | pbcopy && pbpaste && echo) || uuid=$(uuidgen)
+uuid=$(python -c 'import sys,uuid; sys.stdout.write(uuid.uuid4().hex)') || uuid=$(uuidgen)
 output="/tmp/$uuid"
-mkdir "$output"
+mkdir -p "$output"
 input='/data/input'
 slide='/data/wsi'
 ext='.svs'
