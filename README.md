@@ -22,9 +22,10 @@ docker run --name jsonic -v $(pwd)/input:/data/input -v $(pwd)/output:/data/outp
 ```
 docker exec jsonic png_to_json
 ```
-
+<!--
 ### CSV to JSON
 
 ```
 docker exec jsonic csv_to_json
 ```
+-->
