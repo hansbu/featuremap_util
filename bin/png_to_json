@@ -1,6 +1,6 @@
 #!/bin/bash
 
-uuid="python -c 'import sys,uuid; sys.stdout.write(uuid.uuid4().hex)' | pbcopy && pbpaste && echo" || uuid=$(uuidgen)
+uuid=$(python -c 'import sys,uuid; sys.stdout.write(uuid.uuid4().hex)' | pbcopy && pbpaste && echo) || uuid=$(uuidgen)
 output="/tmp/$uuid"
 mkdir "$output"
 input='/data/input'
