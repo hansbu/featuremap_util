@@ -2,7 +2,7 @@
 
 import json
 import os
-
+import sys
 import numpy as np
 import pandas as pd
 
@@ -120,16 +120,16 @@ def do_one_feature(input, output):
         modified.to_csv(f, mode='a', header=False, index=False)
 
 
-def process_dir():
+def process_dir(input, output):
     # Do for all files in directory:
-    cwd = os.getcwd()
-    for filename in os.listdir(cwd):
+    # cwd = os.getcwd()
+    for filename in os.listdir(input):
         if filename.endswith(".csv"):
             red = 'nuclei_ratio'
             r_name = 'Nuclear Ratio'
             green = 'fg_glcm_Correlation'
             g_name = 'Fg Glcm Correlation'
-            create_csv(os.path.join(cwd, filename), os.path.join(cwd, filename + '.1'), red, r_name, green, g_name)
+            create_csv(os.path.join(input, filename), os.path.join(output, filename), red, r_name, green, g_name)
             # do_one_feature(os.path.join(cwd, filename), filename + '.1')
 
 
@@ -140,3 +140,9 @@ def process_one():
     green = 'fg_glcm_Correlation'
     g_name = 'Fg Glcm Correlation'
     create_csv('input.csv', red + '_' + green + '.csv', red, r_name, green, g_name)
+
+
+if __name__ == "__main__":
+    input = sys.argv[1]  # input
+    output = sys.argv[2]  # output
+    process_dir(input, output)
