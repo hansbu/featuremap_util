@@ -9,13 +9,9 @@
 import csv
 import os
 import sys
+
 import cv2
 import openslide
-
-png_fol = ''
-out_fol = ''
-wsi_fol = ''
-slide_ext = ''
 
 
 def get_patch_size(filepath):
@@ -77,7 +73,7 @@ def get_patch_size1(filepath, w_png, h_png):
     return w_wsi, h_wsi, w_patch, h_patch
 
 
-def main():
+def main(png_fol, out_fol, wsi_fol, slide_ext):
     # Iterate through pngs in input folder
     fns = [f for f in os.listdir(png_fol) if '.png' in f]
     for ind, fn in enumerate(fns):
@@ -129,8 +125,8 @@ def main():
 
 
 if __name__ == "__main__":
-    png_fol = sys.argv[1]  # input
-    out_fol = sys.argv[2]  # output
-    wsi_fol = sys.argv[3]  # slide
+    input_folder = sys.argv[1]  # input
+    output_folder = sys.argv[2]  # output
+    slide_folder = sys.argv[3]  # slide
     slide_ext = sys.argv[4]  # tif, svs, etc.
-    main()
+    main(input_folder, output_folder, slide_folder, slide_ext)
