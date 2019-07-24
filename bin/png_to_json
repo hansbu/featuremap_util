@@ -1,12 +1,14 @@
 #!/bin/bash
 
+mkdir /tmp/123456
+mydir='/tmp/123456'
+
 # Step 1
-png_to_csv
+png_to_csv /data/input "$mydir" /data/wsi
 
 if [[ $? -eq 0 ]]
 then
   # Step 2
-  mv /data/output/*.csv /data/input/ || exit 0
-  csv_to_json
-  mv /data/input/*.json /data/output/
+  csv_to_json "$mydir" /data/output
+  rm -rf "$mydir"
 fi
