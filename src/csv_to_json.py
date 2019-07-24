@@ -73,11 +73,13 @@ def save_file(filename, data1, data2):
 
 
 if __name__ == '__main__':
-    for file in os.listdir("/data/input"):
+    input=sys.argv[1]
+    output=sys.argv[2]
+    for file in os.listdir(input):
         if file.endswith(".csv"):
-            f = os.path.join("/data/input", file)
+            f = os.path.join(input, file)
             print(f)
             meta = get_metadata(f)
             data = get_data(f)
-            save_file(f.replace("csv", "json"), meta, data)
+            save_file(os.path.join(input, f.replace("csv", "json")), meta, data)
     print('Done.')
