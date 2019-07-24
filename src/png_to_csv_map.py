@@ -8,14 +8,14 @@
 # we ignore the remainder, since it is likely to be glass.
 import csv
 import os
-
+import sys
 import cv2
 import openslide
 
-png_fol = '/data/input'
-out_fol = '/data/output'
-wsi_fol = '/data/wsi'
-slide_ext = '.svs'
+png_fol = ''
+out_fol = ''
+wsi_fol = ''
+slide_ext = ''
 
 
 def get_patch_size(filepath):
@@ -129,4 +129,8 @@ def main():
 
 
 if __name__ == "__main__":
+    png_fol = sys.argv[1] # input
+    out_fol = sys.argv[2] # output
+    wsi_fol = sys.argv[3] # slide
+    slide_ext = sys.argv[4] # tif, svs, etc.
     main()
