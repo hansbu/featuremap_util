@@ -1,16 +1,20 @@
 #!/bin/bash
 
 uuid=$(python -c 'import sys,uuid; sys.stdout.write(uuid.uuid4().hex)') || uuid=$(uuidgen)
-output="/tmp/$uuid"
-mkdir -p "$output"
+mydir="/tmp/$uuid"
+mkdir -p "$mydir"
 input='/data/input'
 slide='/data/wsi'
 ext='.svs'
 # Step 1
-python /app/src/png_to_csv_map.py "$input" "$output" "$slide" "$ext"
+python /app/src/png_to_csv_map.py "$input" "$mydir" "$slide" "$ext"
 if [[ $? -eq 0 ]]
 then
   # Step 2
-  python /app/src/csv_to_json.py "$input" "$output"
-  rm -rf "$output"
+  output='/data/output'
+  python /app/src/csv_to_json.py "$mydir" "$output"
+  if [[ $? -eq 0 ]]
+  then
+    rm -rf "$mydir"
+  fi
 fi
