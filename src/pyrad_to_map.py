@@ -15,7 +15,8 @@ def prRed(skk): print("\033[91m {}\033[00m".format(skk))
 def normalize(df, column_names_to_normalize):
     try:
         # Clean up non-numeric values
-        df.replace(r'[a-zA-Z%]', '0', regex=True, inplace=True)
+        # df.replace(r'[a-zA-Z%]', '0', regex=True, inplace=True)
+        df.replace(r'None', '0', regex=True, inplace=True)
         df.apply(pd.to_numeric)
         # Normalize
         x = df[column_names_to_normalize].values  # returns a numpy array
