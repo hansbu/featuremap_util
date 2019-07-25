@@ -22,6 +22,7 @@ def normalize(df, column_names_to_normalize):
     except ValueError as ex:
         prRed('FOUND NON-NUMERIC VALUES IN DATA COLUMNS')
         prRed(ex)
+        exit(1)
     return df
 
 
