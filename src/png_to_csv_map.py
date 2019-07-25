@@ -92,7 +92,7 @@ def main(png_fol, out_fol, wsi_fol, slide_ext):
         # print(w_wsi, w_png, "|", h_wsi, h_png)
 
         res_file = os.path.join(out_fol, slide_id + '.csv')
-        print('OUT: ' + res_file)
+        # print('OUT: ' + res_file)
         if os.path.exists(res_file):
             continue
         # print(ind, fn)

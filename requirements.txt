@@ -1,3 +1,4 @@
 pandas
+sklearn
 openslide-python
 opencv-python
