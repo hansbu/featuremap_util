@@ -9,12 +9,19 @@ import pandas as pd
 from sklearn import preprocessing
 
 
+def prRed(skk): print("\033[91m {}\033[00m".format(skk))
+
+
 def normalize(df, column_names_to_normalize):
-    x = df[column_names_to_normalize].values  # returns a numpy array
-    min_max_scaler = preprocessing.MinMaxScaler(feature_range=(0, 255))
-    x_scaled = min_max_scaler.fit_transform(x)
-    df_temp = pd.DataFrame(x_scaled, columns=column_names_to_normalize, index=df.index)
-    df[column_names_to_normalize] = df_temp
+    try:
+        x = df[column_names_to_normalize].values  # returns a numpy array
+        min_max_scaler = preprocessing.MinMaxScaler(feature_range=(0, 255))
+        x_scaled = min_max_scaler.fit_transform(x)
+        df_temp = pd.DataFrame(x_scaled, columns=column_names_to_normalize, index=df.index)
+        df[column_names_to_normalize] = df_temp
+    except ValueError as ex:
+        prRed('WHY ARE THERE NON-NUMERIC VALUES IN THIS SPREADSHEET?')
+        prRed(ex)
     return df
 
 
@@ -62,7 +69,6 @@ def process(input, output):
     for filename in os.listdir(input):
         if filename.endswith(".csv"):
             fin = os.path.join(input, filename)
-            print(fin)
             df = pd.read_csv(fin)
             meta = get_meta(df)
             cols, column_names_to_normalize = get_columns(df)
