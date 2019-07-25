@@ -20,7 +20,7 @@ def normalize(df, column_names_to_normalize):
         df_temp = pd.DataFrame(x_scaled, columns=column_names_to_normalize, index=df.index)
         df[column_names_to_normalize] = df_temp
     except ValueError as ex:
-        prRed('WHY ARE THERE NON-NUMERIC VALUES IN THIS SPREADSHEET?')
+        prRed('FOUND NON-NUMERIC VALUES IN DATA COLUMNS')
         prRed(ex)
     return df
 
