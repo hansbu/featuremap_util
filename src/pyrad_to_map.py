@@ -9,11 +9,12 @@ import pandas as pd
 from sklearn import preprocessing
 
 
-def normalize(df):
-    x = df.values  # returns a numpy array
+def normalize(df, column_names_to_normalize):
+    x = df[column_names_to_normalize].values  # returns a numpy array
     min_max_scaler = preprocessing.MinMaxScaler(feature_range=(0, 255))
     x_scaled = min_max_scaler.fit_transform(x)
-    df = pd.DataFrame(x_scaled, columns=df.columns, index=df.index)
+    df_temp = pd.DataFrame(x_scaled, columns=column_names_to_normalize, index=df.index)
+    df[column_names_to_normalize] = df_temp
     return df
 
 
@@ -56,20 +57,13 @@ def get_columns(df):
     return column_names, column_names_to_normalize
 
 
-def check_csv(somefile):
-    data = pd.DataFrame(somefile)
-    cols = list(data.columns)
-    print(f'{str(len(cols))} columns')
-
-
 def process(input, output):
     # Do for all files in directory:
     for filename in os.listdir(input):
         if filename.endswith(".csv"):
             fin = os.path.join(input, filename)
-            check_csv(fin)
-
-            df = pd.read_csv(input)
+            print(fin)
+            df = pd.read_csv(fin)
             meta = get_meta(df)
             cols, column_names_to_normalize = get_columns(df)
             column_names = ",".join(cols)
@@ -80,10 +74,11 @@ def process(input, output):
                 f.write(json.dumps(meta) + '\n')
                 f.write(column_names + '\n')
 
-            df = normalize(df)
-            df = df.sort_values(['patch_x', 'patch_y'], ascending=[1, 1])
+            df = df[cols]
+            df = normalize(df, column_names_to_normalize)
+            df = df.sort_values(['i', 'j'], ascending=[1, 1])
 
-            with open(output, 'a') as f:
+            with open(fout, 'a') as f:
                 df.to_csv(f, mode='a', header=False, index=False)
 
 
