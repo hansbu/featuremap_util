@@ -22,6 +22,13 @@ docker run --name jsonic -v $(pwd)/input:/data/input -v $(pwd)/output:/data/outp
 ```
 docker exec jsonic png_to_json
 ```
+
+### Pyradiomics to featuremap
+
+```
+docker exec jsonic pyrad_to_map
+```
+
 <!--
 ### CSV to JSON
 
