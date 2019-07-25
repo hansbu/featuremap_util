@@ -6,28 +6,15 @@ import sys
 
 import numpy as np
 import pandas as pd
+from sklearn import preprocessing
 
 
 def normalize(df):
-    result = df.copy()
-    for feature_name in df.columns:
-        max_value = df[feature_name].max()
-        min_value = df[feature_name].min()
-        result[feature_name] = (df[feature_name] - min_value) / (max_value - min_value)
-    return result
-
-
-def ordenar(df):
-    # Sort
-    result = df.copy()
-    result = result.sort_values(['patch_x', 'patch_y'], ascending=[1, 1])
-    # PNG i,j
-    result['i'] = result['patch_x'] / df['patch_width']
-    result['j'] = result['patch_y'] / df['patch_height']
-    # Round up
-    result.i = np.ceil(result.i).astype(int)
-    result.j = np.ceil(result.j).astype(int)
-    return result
+    x = df.values  # returns a numpy array
+    min_max_scaler = preprocessing.MinMaxScaler(feature_range=(0, 255))
+    x_scaled = min_max_scaler.fit_transform(x)
+    df = pd.DataFrame(x_scaled, columns=df.columns, index=df.index)
+    return df
 
 
 def get_meta(df):
@@ -48,20 +35,25 @@ def get_meta(df):
 
 
 def get_columns(df):
-    # Columns
+    # Normalize to PNG dimensions
     df['i'] = df['patch_x'] / df['patch_width']
     df['j'] = df['patch_y'] / df['patch_height']
+
+    # Round up
     df.i = np.ceil(df.i).astype(int)
     df.j = np.ceil(df.j).astype(int)
 
-    the_nope_list = ['case_id', 'image_width', 'image_height', 'mpp_x', 'mpp_y', 'patch_x', 'patch_y', 'patch_width',
+    to_be_removed = ['case_id', 'image_width', 'image_height', 'mpp_x', 'mpp_y', 'patch_x', 'patch_y', 'patch_width',
                      'patch_height', 'i', 'j']
+    column_names_to_normalize = []
     cols = list(df.columns)
-    cols1 = ['i', 'j']
+    column_names = ['i', 'j']
     for c in cols:
-        if c not in the_nope_list:
-            cols1.append(c)
-    return cols1
+        if c not in to_be_removed:
+            column_names.append(c)
+            if c not in 'i' and c not in 'j':
+                column_names_to_normalize.append(c)
+    return column_names, column_names_to_normalize
 
 
 def check_csv(somefile):
@@ -79,19 +71,20 @@ def process(input, output):
 
             df = pd.read_csv(input)
             meta = get_meta(df)
-            cols = get_columns(df)
-            columns = ",".join(cols)
+            cols, column_names_to_normalize = get_columns(df)
+            column_names = ",".join(cols)
 
             # Write first row JSON
             fout = os.path.join(output, filename)
             with open(fout, 'w') as f:
                 f.write(json.dumps(meta) + '\n')
-                f.write(columns + '\n')
+                f.write(column_names + '\n')
 
-            ddf = ordenar(df)
+            df = normalize(df)
+            df = df.sort_values(['patch_x', 'patch_y'], ascending=[1, 1])
 
             with open(output, 'a') as f:
-                ddf.to_csv(f, mode='a', header=False, index=False)
+                df.to_csv(f, mode='a', header=False, index=False)
 
 
 if __name__ == "__main__":
