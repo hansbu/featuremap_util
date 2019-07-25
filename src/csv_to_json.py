@@ -67,7 +67,7 @@ def save_file(filename, data1, data2):
     f = open(filename, "w")
     f.write(json_str)
     f.close()
-    print('OUT: ' + filename)
+    # print('OUT: ' + filename)
 
 
 if __name__ == '__main__':
