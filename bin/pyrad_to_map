@@ -4,8 +4,6 @@ uuid=$(python -c 'import sys,uuid; sys.stdout.write(uuid.uuid4().hex)') || uuid=
 mydir="/tmp/$uuid"
 mkdir -p "$mydir"
 input='/data/input'
-slide='/data/wsi'
-ext='.svs'
 # Step 1
 python /app/src/pyrad_to_map.py "$input" "$mydir"
 if [[ $? -eq 0 ]]
