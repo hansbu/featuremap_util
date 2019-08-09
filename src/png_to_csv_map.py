@@ -116,6 +116,7 @@ def main(png_fol, out_fol, wsi_fol, slide_ext):
             # loop over the image, pixel by pixel
             for x in range(0, w_png):
                 for y in range(0, h_png):
+                    # if not (png[y, x][0] == 255 and png[y, x][1] == 255 and png[y, x][2] == 255):
                     if not (png[y, x][0] == 0 and png[y, x][1] == 0 and png[y, x][2] == 0):
                         # OpenCV is bgr
                         feature_writer.writerow([x, y, png[y, x][2], png[y, x][1], png[y, x][0]])
