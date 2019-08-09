@@ -1,7 +1,17 @@
 #!/bin/bash
 
+NORMAL="\\033[0;39m"
+RED="\\033[1;31m"
+# Check input
+if [[ "$#" -eq  "0" ]]
+  then
+    echo "No arguments supplied"
+    printf "    ${RED}wsi type? svs or tif?${NORMAL}\n"
+    exit 1
+fi
+
 input='/data/input'
 output='/data/output'
 slide='/data/wsi'
-ext='.svs'
+ext=".$1"
 python /app/src/png_to_csv_map.py "$input" "$output" "$slide" "$ext"
