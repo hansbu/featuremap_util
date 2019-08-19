@@ -6,7 +6,7 @@ RED="\\033[1;31m"
 if [[ "$#" -eq  "0" ]]
   then
     echo "No arguments supplied"
-    printf "    ${RED}wsi type? svs or tif?${NORMAL}\n"
+    printf "    ${RED}wsi type? svs, tif, or scn?${NORMAL}\n"
     exit 1
 fi
 
