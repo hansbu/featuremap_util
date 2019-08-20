@@ -11,7 +11,7 @@ docker build -t featuremap_util .
 docker run --name jsonic -v $(pwd)/input:/data/input -v $(pwd)/output:/data/output -itd featuremap_util
 ```-->
 
-### BUILD AND RUN
+### Build and run
 
 ```
 ./build.sh /path/to/input/dir /path/to/output/dir /path/to/wsi/dir
@@ -36,3 +36,29 @@ docker exec jsonic pyrad_to_map
 docker exec jsonic csv_to_json
 ```
 -->
+
+### Input data format
+
+```
+{
+    "metadata": {
+        "img_width": number,
+        "img_height": number,
+        "png_w": number,
+        "png_h": number,
+        "patch_w": number,
+        "patch_h": number
+    },
+    "data": {
+        "locations": {
+            "i": [list of 'i' (aka 'x' coordinates)],
+            "j": [list of 'j' (aka 'y' coordinates)]
+        },
+        "features": {
+            "TIL": [ list of feature data corresponding to i,j (see above) ],
+            "Cancer": [ list of feature data corresponding to i,j (see above) ],
+            "Tissue": [ list of feature data corresponding to i,j (see above) ]
+        }
+    }
+}
+```
