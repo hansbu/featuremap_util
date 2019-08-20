@@ -18,11 +18,13 @@ def get_metadata(filename):
                 # Get the metadata
                 if line_count == 0:
                     line_count += 1
+                    # If the string ended up getting split by csv
                     if len(row) > 1:
                         # Concatenate list
                         blah = ','.join(row)
                         x = json.loads(blah)
                     else:
+                        # Info string is good to go
                         x = json.loads(row[0])
                     my_obj["metadata"] = x
         csv_file.close()
