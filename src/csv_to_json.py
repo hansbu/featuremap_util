@@ -27,6 +27,8 @@ def get_metadata(filename):
                         # Info string is good to go
                         x = json.loads(row[0])
                     my_obj["metadata"] = x
+                else:
+                    break
         csv_file.close()
     except FileNotFoundError as e:
         print(filename, ":", e.strerror)
