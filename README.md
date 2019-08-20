@@ -37,7 +37,7 @@ docker exec jsonic csv_to_json
 ```
 -->
 
-### Input data format
+### JSON data format
 
 ```
 {
