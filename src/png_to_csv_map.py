@@ -87,8 +87,6 @@ def main(png_fol, out_fol, wsi_fol, slide_ext):
         filepath = os.path.join(wsi_fol, slide_id + slide_ext)
         if not os.path.exists(filepath):
             findit = os.path.join(wsi_fol, slide_id) + '*' + slide_ext
-            print(type(findit))
-            print(findit)
             filepath = glob.glob(findit)
             if len(filepath) > 0:
                 filepath = filepath[0]
