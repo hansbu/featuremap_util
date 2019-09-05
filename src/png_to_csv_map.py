@@ -90,7 +90,13 @@ def main(png_fol, out_fol, wsi_fol, slide_ext):
             print(type(findit))
             print(findit)
             filepath = glob.glob(findit)
-            if not os.path.exists(filepath):
+            if len(filepath) > 0:
+                filepath = filepath[0]
+                if not os.path.exists(filepath):
+                    print('File not found: ', filepath)
+                    continue
+            else:
+                # Filepath empty
                 print('File not found: ', filepath)
                 continue
 
