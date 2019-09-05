@@ -76,9 +76,9 @@ def get_patch_size1(filepath, w_png, h_png):
 def main(png_fol, out_fol, wsi_fol, slide_ext):
     # Iterate through pngs in input folder
     fns = [f for f in os.listdir(png_fol) if '.png' in f]
-    for ind, fn in enumerate(fns):
-        slide_id = fn.split('.png')[0]  # get base name
-        png = cv2.imread(png_fol + '/' + fn, cv2.IMREAD_COLOR)  # Loads a color image.
+    for idx, filename in enumerate(fns):
+        slide_id = filename.split('.png')[0]  # get base name
+        png = cv2.imread(png_fol + '/' + filename, cv2.IMREAD_COLOR)  # Loads a color image.
         # grab the image dimensions (row, column)
         h_png = png.shape[0]
         w_png = png.shape[1]
@@ -95,7 +95,7 @@ def main(png_fol, out_fol, wsi_fol, slide_ext):
         # print('OUT: ' + res_file)
         if os.path.exists(res_file):
             continue
-        # print(ind, fn)
+        # print(idx, filename)
 
         # Write CSV file from input image pixels
         with open(res_file, mode='w') as f:
