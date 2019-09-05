@@ -7,6 +7,7 @@
 # If patch width and height do not divide evenly into slide width and height,
 # we ignore the remainder, since it is likely to be glass.
 import csv
+import glob
 import os
 import sys
 
@@ -85,8 +86,13 @@ def main(png_fol, out_fol, wsi_fol, slide_ext):
 
         filepath = os.path.join(wsi_fol, slide_id + slide_ext)
         if not os.path.exists(filepath):
-            print('File not found: ', filepath)
-            continue
+            findit = os.path.join(wsi_fol, slide_id) + '*' + slide_ext
+            print(type(findit))
+            print(findit)
+            filepath = glob.glob(findit)
+            if not os.path.exists(filepath):
+                print('File not found: ', filepath)
+                continue
 
         w_wsi, h_wsi, w_patch, h_patch = get_patch_size(filepath)
         # print(w_wsi, w_png, "|", h_wsi, h_png)
