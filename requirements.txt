@@ -2,3 +2,6 @@ pandas
 sklearn
 openslide-python
 opencv-python
+pillow
+scipy
+scikit-image
