@@ -1,0 +1,9 @@
+#!/bin/bash
+
+mkdir /app/quip_lymphocyte
+cd /app/quip_lymphocyte
+git init
+git config core.sparsecheckout true
+echo download_heatmap/get_grayscale_heatmaps/ >> .git/info/sparse-checkout
+git remote add origin -f https://github.com/SBU-BMI/quip_lymphocyte.git
+git pull origin master
