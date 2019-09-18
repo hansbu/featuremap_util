@@ -16,6 +16,7 @@ docker run --name jsonic -v $(pwd)/input:/data/input -v $(pwd)/output:/data/outp
 ```
 ./build.sh /path/to/input/dir /path/to/output/dir /path/to/wsi/dir
 ```
+<!-- ./build.sh $(pwd)/input $(pwd)/output /path/to/wsi/dir -->
 
 ### PNG to JSON
 
