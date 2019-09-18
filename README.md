@@ -8,7 +8,7 @@ docker build -t featuremap_util .
 
 ### Run
 ```
-docker run --name jsonic -v $(pwd)/input:/data/input -v $(pwd)/output:/data/output -itd featuremap_util
+docker run --name quip-maputil -v $(pwd)/input:/data/input -v $(pwd)/output:/data/output -itd featuremap_util
 ```-->
 
 ### Build and run
@@ -21,20 +21,20 @@ docker run --name jsonic -v $(pwd)/input:/data/input -v $(pwd)/output:/data/outp
 ### PNG to JSON
 
 ```
-docker exec jsonic png_to_json
+docker exec quip-maputil png_to_json
 ```
 
 ### Pyradiomics to featuremap
 
 ```
-docker exec jsonic pyrad_to_map
+docker exec quip-maputil pyrad_to_map
 ```
 
 <!--
 ### CSV to JSON
 
 ```
-docker exec jsonic csv_to_json
+docker exec quip-maputil csv_to_json
 ```
 -->
 

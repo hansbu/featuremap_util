@@ -14,7 +14,7 @@ RED="\\033[1;31m"
 
 # Names to identify images and containers of this app
 IMAGE_NAME='featuremap_util'
-CONTAINER_NAME="jsonic" # NAME TBA
+CONTAINER_NAME="quip-maputil" # NAME TBA
 
 build() {
   docker build -t $IMAGE_NAME .
