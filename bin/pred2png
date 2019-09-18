@@ -1,0 +1,14 @@
+#!/bin/bash
+
+SECONDS=0
+cd /app/get_grayscale_heatmaps
+./get_grayscale_heatmap.sh
+ELAPSED="Elapsed: $(($SECONDS / 3600))hrs $(($SECONDS / 60 % 60))min $(($SECONDS % 60))sec"
+echo "$ELAPSED"
+#mkdir /app/quip_lymphocyte
+#cd /app/quip_lymphocyte
+#git init
+#git config core.sparsecheckout true
+#echo download_heatmap/get_grayscale_heatmaps/ >> .git/info/sparse-checkout
+#git remote add origin -f https://github.com/SBU-BMI/quip_lymphocyte.git
+#git pull origin master
