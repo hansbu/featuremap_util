@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 SECONDS=0
-cd "/app/get_grayscale_heatmaps" || echo 'No such directory?' && exit
+cd "/app/get_grayscale_heatmaps" || echo 'No such directory?' && exit 1
 ./get_grayscale_heatmap.sh
 ELAPSED="Elapsed: $(($SECONDS / 3600))hrs $(($SECONDS / 60 % 60))min $(($SECONDS % 60))sec"
 echo "$ELAPSED"
