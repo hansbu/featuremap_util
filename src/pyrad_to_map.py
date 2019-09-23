@@ -76,7 +76,11 @@ def process(input, output):
     for filename in os.listdir(input):
         if filename.endswith(".csv"):
             fin = os.path.join(input, filename)
-            df = pd.read_csv(fin)
+            try:
+                df = pd.read_csv(fin)
+                var = df['image_width'].iloc[0]  # catch stuff that isn't pyradiomics
+            except Exception as ex:
+                continue
             meta = get_meta(df)
             cols, column_names_to_normalize = get_columns(df)
             column_names = ",".join(cols)
