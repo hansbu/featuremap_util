@@ -9,11 +9,10 @@ if [[ "$#" -eq  "0" ]]
     printf "    ${RED}wsi type? svs, tif, or scn?${NORMAL}\n"
     exit 1
 fi
-ext=".$1"
+ext="$1"
 
 # Prediction to PNG
-cd "/app/src/get_grayscale_heatmaps" || echo 'No such directory?' && exit 1
-./get_grayscale_heatmap.sh "$ext"
+/app/src/get_grayscale_heatmaps/get_grayscale_heatmap.sh "$ext"
 
 # PNG to CSV
 uuid=$(python -c 'import sys,uuid; sys.stdout.write(uuid.uuid4().hex)') || uuid=$(uuidgen)

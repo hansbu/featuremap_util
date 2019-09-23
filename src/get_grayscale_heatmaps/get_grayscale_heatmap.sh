@@ -36,7 +36,7 @@ for files in ${HEAT_LOC}/color-*; do
   HEIGHT=$(openslide-show-properties ${SVS_FILE} |
     grep "openslide.level\[0\].height" | awk '{print substr($2,2,length($2)-2);}')
 
-  python get_grayscale_heatmap.py ${SVS} ${WIDTH} ${HEIGHT} ${PRED} ${COLOR}
+  python /app/src/get_grayscale_heatmaps/get_grayscale_heatmap.py ${SVS} ${WIDTH} ${HEIGHT} ${PRED} ${COLOR}
 done
 #cp ./grayscale_heatmaps/* ${GRAYSCALE_HEATMAPS_PATH}/
 
