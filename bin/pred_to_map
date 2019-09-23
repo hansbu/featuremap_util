@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+# Prediction to PNG to JSON
 SECONDS=0
 cd "/app/get_grayscale_heatmaps" || echo 'No such directory?' && exit 1
 ./get_grayscale_heatmap.sh

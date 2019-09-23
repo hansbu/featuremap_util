@@ -21,16 +21,16 @@ docker run --name quip-maputil -v $(pwd)/input:/data/input -v $(pwd)/output:/dat
 Input files go in input directory!<br>
 Program will output files to the output folder you specified!
 
-### Prediction files to PNG
+### Prediction files to featuremap
 
 ```
-docker exec quip-maputil pred2png
+docker exec quip-maputil pred_to_map
 ```
 
-### PNG to JSON
+### PNG to featuremap
 
 ```
-docker exec quip-maputil png_to_json
+docker exec quip-maputil png_to_map
 ```
 
 ### Pyradiomics to featuremap
@@ -43,7 +43,7 @@ docker exec quip-maputil pyrad_to_map
 ### CSV to JSON
 
 ```
-docker exec quip-maputil csv_to_json
+docker exec quip-maputil csv_to_map
 ```
 -->
 <!--
