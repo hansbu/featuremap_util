@@ -1,3 +1,3 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 python /app/src/pyrad_to_map.py "/data/input" "/data/output"

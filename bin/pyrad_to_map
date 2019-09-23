@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Pyradiomics to CSV to JSON
 
 uuid=$(python -c 'import sys,uuid; sys.stdout.write(uuid.uuid4().hex)') || uuid=$(uuidgen)
