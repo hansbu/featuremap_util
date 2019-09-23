@@ -1,8 +1,29 @@
 #!/usr/bin/env bash
 
-# Prediction to PNG to JSON
-SECONDS=0
-cd "/app/get_grayscale_heatmaps" || echo 'No such directory?' && exit 1
-./get_grayscale_heatmap.sh
-ELAPSED="Elapsed: $(($SECONDS / 3600))hrs $(($SECONDS / 60 % 60))min $(($SECONDS % 60))sec"
-echo "$ELAPSED"
+NORMAL="\\033[0;39m"
+RED="\\033[1;31m"
+# Check input
+if [[ "$#" -eq  "0" ]]
+  then
+    echo "No arguments supplied"
+    printf "    ${RED}wsi type? svs, tif, or scn?${NORMAL}\n"
+    exit 1
+fi
+ext=".$1"
+
+# Prediction to PNG
+cd "/app/src/get_grayscale_heatmaps" || echo 'No such directory?' && exit 1
+./get_grayscale_heatmap.sh "$ext"
+
+# PNG to CSV
+uuid=$(python -c 'import sys,uuid; sys.stdout.write(uuid.uuid4().hex)') || uuid=$(uuidgen)
+mydir="/tmp/$uuid"
+mkdir -p "$mydir"
+input='/data/input'
+slide='/data/wsi'
+ext=".$1"
+
+python /app/src/png_to_csv_map.py "$output" "$mydir" "$slide" "$ext"
+
+# CSV to JSON
+python /app/src/csv_to_json.py "$mydir" "$output"
