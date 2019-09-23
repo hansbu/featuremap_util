@@ -12,7 +12,8 @@ fi
 ext="$1"
 
 # Prediction to PNG
-/app/src/get_grayscale_heatmaps/get_grayscale_heatmap.sh "$ext"
+/app/src/get_grayscale_heatmaps/get_grayscale_heatmap.sh $ext
+
 
 # PNG to CSV
 uuid=$(python -c 'import sys,uuid; sys.stdout.write(uuid.uuid4().hex)') || uuid=$(uuidgen)
@@ -21,7 +22,6 @@ mkdir -p "$mydir"
 input='/data/input'
 output='/data/output'
 slide='/data/wsi'
-ext=".$1"
 
 python /app/src/png_to_csv_map.py "$output" "$mydir" "$slide" "$ext"
 

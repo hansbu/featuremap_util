@@ -140,4 +140,4 @@ if __name__ == "__main__":
     output_folder = sys.argv[2]  # output
     slide_folder = sys.argv[3]  # slide
     slide_ext = sys.argv[4]  # tif, svs, etc.
-    main(input_folder, output_folder, slide_folder, slide_ext)
+    main(input_folder, output_folder, slide_folder, '.' + slide_ext)
