@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+python /app/src/merge_cancer_til/gen_cancer_tils_pathDB_combined_maps.py 0 10000
