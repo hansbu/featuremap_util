@@ -50,13 +50,17 @@ The FeatureMap application accepts data in JSON format.  Let's say we have a "le
 docker exec quip-maputil csv_to_json
 ```
 
-<!--
-### CSV to JSON
+### Merge TIL & Cancer to featuremap
+We've got til predictions and cancer predictions.  Here's what to do.  Run the following command, substitute `[svs | tif | ext]` with the file extension of the slide.
 
 ```
-docker exec quip-maputil csv_to_map
+cd input; mkdir til cancer
+# put input files in input/til and input/cancer
+# then run
+nohup docker exec quip-maputil merge_til_tumor [svs | tif | ext] &
 ```
--->
+
+
 <!--
 ### JSON data format
 

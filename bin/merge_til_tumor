@@ -1,2 +1,45 @@
 #!/usr/bin/env bash
-python /app/src/merge_cancer_til/gen_cancer_tils_pathDB_combined_maps.py 0 10000
+
+NORMAL="\\033[0;39m"
+RED="\\033[1;31m"
+# Check input
+if [[ "$#" -eq "0" ]]; then
+  echo "No arguments supplied"
+  printf "    ${RED}wsi type? svs, tif, or scn?${NORMAL}\n"
+  exit 1
+fi
+
+# python /app/src/merge_cancer_til/gen_cancer_tils_pathDB_combined_maps.py "$ext" "$mydir"
+
+uuid=$(python -c 'import sys,uuid; sys.stdout.write(uuid.uuid4().hex)') || uuid=$(uuidgen)
+mydir="/tmp/$uuid"
+mkdir -p "$mydir"
+slide='/data/wsi'
+ext="$1"
+
+# Step 1
+echo "Combine..."
+# echo "/app/src/merge_cancer_til/gen_cancer_tils_pathDB_combined_maps.py $mydir $ext"
+python /app/src/merge_cancer_til/gen_cancer_tils_pathDB_combined_maps.py "$mydir" "$ext"
+if [[ $? -eq 0 ]]; then
+  # Step 2
+  output='/data/output'
+  #  python /app/src/merge_cancer_til/csv_normalize.py "$mydir" "$output"
+  uuid=$(python -c 'import sys,uuid; sys.stdout.write(uuid.uuid4().hex)') || uuid=$(uuidgen)
+  mydir2="/tmp/$uuid"
+  mkdir -p "$mydir2"
+  echo "Map..."
+  #echo "/app/src/png_to_csv_map.py $mydir $mydir2 $slide $ext"
+  python /app/src/png_to_csv_map.py "$mydir" "$mydir2" "$slide" "$ext"
+  if [[ $? -eq 0 ]]; then
+    # Step 3
+    output='/data/output'
+    echo "Finishing..."
+    # echo "/app/src/csv_to_json.py $mydir2 $output"
+    python /app/src/csv_to_json.py "$mydir2" "$output"
+    if [[ $? -eq 0 ]]; then
+      rm -rf "$mydir"
+      rm -rf "$mydir2"
+    fi
+  fi
+fi

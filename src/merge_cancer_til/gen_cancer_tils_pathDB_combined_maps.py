@@ -7,22 +7,18 @@ import sys
 import cv2
 import numpy as np
 import openslide
-# import dice_auc_cal
 from dice_auc_cal import *
 
-try:
-    start_ind = int(sys.argv[1])
-    end_ind = int(sys.argv[2])
-except:
-    start_ind = 0
-    end_ind = 10000
+start_ind = 0
+end_ind = 10000
 
 # input the path to cancer heatmap_txt and TIL heatmap_txt. Change the folders here!
 cancer_pred_fol = '/data/input/cancer'  # folder path containing the prediction-xxx files for cancer
 til_thresholded = '/data/input/til'  # folder path containing the prediction-xxx files for TILs
 svs_fol = '/data/wsi'  # folder path containing all the WSIs
-slide_extension = '.svs'  # extension of the slide, can be .svs, .tiff, etc.
-til_cancer_fol = '/data/output'  # output folder
+# til_cancer_fol = '/data/output'  # output folder
+til_cancer_fol = sys.argv[1]  # temp. output folder
+slide_extension = '.' + sys.argv[2]  # extension of the slide, can be .svs, .tiff, etc.
 # done changing arguments
 
 if not os.path.exists(til_cancer_fol):
@@ -34,8 +30,11 @@ cancer_preds_files = list(set(cancer_preds_files))
 print('Total number of files: ', len(cancer_preds_files))
 
 cancer_preds_files.sort()
-if end_ind > len(cancer_preds_files): end_ind = len(cancer_preds_files)
+if end_ind > len(cancer_preds_files):
+    end_ind = len(cancer_preds_files)
 cancer_preds_files = cancer_preds_files[start_ind:end_ind]
+
+
 # cancer_only = set(['TCGA-3C-AALI-01Z-00-DX1'])
 
 
