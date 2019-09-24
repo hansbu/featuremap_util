@@ -15,7 +15,7 @@ mydir="/tmp/$uuid"
 mkdir -p "$mydir"
 input='/data/input'
 slide='/data/wsi'
-ext=".$1"
+ext="$1"
 # Step 1
 python /app/src/png_to_csv_map.py "$input" "$mydir" "$slide" "$ext"
 if [[ $? -eq 0 ]]

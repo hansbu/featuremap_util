@@ -13,5 +13,5 @@ fi
 input='/data/input'
 output='/data/output'
 slide='/data/wsi'
-ext=".$1"
+ext="$1"
 python /app/src/png_to_csv_map.py "$input" "$output" "$slide" "$ext"
