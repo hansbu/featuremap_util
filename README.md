@@ -22,7 +22,7 @@ Input files go in input directory!<br>
 Program will output files to the output folder you specified!
 
 ### Prediction files to featuremap
-Let's say you have a bunch of prediction files (color-*, prediction-*) and you want to genereate featuremaps.  Run the following command, substitute `[svs | tif | ext]` with the file extension of the slide.
+Let's say you have a bunch of prediction files (color-\*, prediction-\*) and you want to genereate featuremaps.  Run the following command, substitute `[svs | tif | ext]` with the file extension of the slide.
 
 ```
 nohup docker exec quip-maputil pred_to_map [svs | tif | ext] &
