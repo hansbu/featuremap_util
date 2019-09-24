@@ -24,7 +24,7 @@ for files in ${HEAT_LOC}/color-*; do
 
   # Get slide id
   SVS=$(echo ${files} | awk -F'/' '{print $NF}' | awk -F'color-' '{print $2}')
-  if [ ${SVS} == "*" ]; then
+  if [ $SVS == "*" ]; then
     error_exit "There are no color files." $LINENO
   fi
 
