@@ -1,5 +1,6 @@
 #!/bin/bash
 
+PROGNAME=$(basename "$0")
 error_exit() {
    echo "${PROGNAME}: ${1:-"Error"}" 1>&2
    echo "Line $2"
