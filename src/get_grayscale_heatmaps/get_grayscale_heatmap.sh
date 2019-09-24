@@ -21,12 +21,13 @@ HEAT_LOC='/data/input'
 #rm grayscale_heatmaps/*
 
 for files in ${HEAT_LOC}/color-*; do
-
-  # Get slide id
-  SVS=$(echo ${files} | awk -F'/' '{print $NF}' | awk -F'color-' '{print $2}')
-  if [ $SVS == "*" ]; then
+  
+  if [ ${files[0]} == "/data/input/color-*" ]; then
     error_exit "There are no color files." $LINENO
   fi
+  
+  # Get slide id
+  SVS=$(echo ${files} | awk -F'/' '{print $NF}' | awk -F'color-' '{print $2}')
 
   # Find the unmodified heatmap
   PRED=$(ls -1 ${HEAT_LOC}/prediction-${SVS}* | grep -v low_res)
