@@ -22,21 +22,38 @@ Input files go in input directory!<br>
 Program will output files to the output folder you specified!
 
 ### Prediction files to featuremap
+Let's say you have a bunch of prediction files (color-*, prediction-*) and you want to genereate featuremaps.  Run the following command, substitute `[svs | tif | ext]` with the file extension of the slide.
 
 ```
 nohup docker exec quip-maputil pred_to_map [svs | tif | ext] &
 ```
 
 ### PNG to featuremap
+Let's say we don't have the prediction files, but we have a bunch of PNGs.  Here's how to generate featuremaps.  Again, run the following command, substitute `[svs | tif | ext]` with the file extension of the slide.
 
 ```
 docker exec quip-maputil png_to_map [svs | tif | ext]
 ```
 
 ### Pyradiomics to featuremap
+We've generated a bunch of pyradiomics csv files.  Here's how to create featuremaps:
 
 ```
 docker exec quip-maputil pyrad_to_map
+```
+
+### Pyradiomics to featuremap
+We've generated a bunch of pyradiomics CSV files.  Here's how to create featuremaps:
+
+```
+docker exec quip-maputil pyrad_to_map
+```
+
+### CSV maps to JSON featuremaps
+The FeatureMap application accepts data in JSON format.  Let's say we have a "legacy" map, i.e. one with a JSON "header", and then columns `i, j, R, G, B`.  And we want to convert them to proper featuremaps.  Here's how:
+
+```
+docker exec quip-maputil csv_to_json
 ```
 
 <!--
