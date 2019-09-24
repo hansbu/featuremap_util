@@ -42,14 +42,8 @@ We've generated a bunch of pyradiomics csv files.  Here's how to create featurem
 docker exec quip-maputil pyrad_to_map
 ```
 
-### Pyradiomics to featuremap
-We've generated a bunch of pyradiomics CSV files.  Here's how to create featuremaps:
 
-```
-docker exec quip-maputil pyrad_to_map
-```
-
-### CSV maps to JSON featuremaps
+### CSV to featuremap
 The FeatureMap application accepts data in JSON format.  Let's say we have a "legacy" map, i.e. one with a JSON "header", and then columns `i, j, R, G, B`.  And we want to convert them to proper featuremaps.  Here's how:
 
 ```
