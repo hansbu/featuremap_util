@@ -1,17 +1,17 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 PROGNAME=$(basename "$0")
 error_exit() {
-   echo "${PROGNAME}: ${1:-"Error"}" 1>&2
-   echo "Line $2"
-   exit 1
+  echo "${PROGNAME}: ${1:-"Error"}" 1>&2
+  echo "Line $2"
+  exit 1
 }
-
-# Path contains the svs slides
-# This is just used for getting the height and width
-# of the slides
-SLIDES='/data/wsi'
 EXT="$1"
+
+#source ../../conf/variables.sh
+
+# This is just used for getting wsi height and width
+SLIDES='/data/wsi'
 
 # Locations of unmodified heatmaps
 # The filenames of the unmodifed heatmaps should be:
@@ -21,30 +21,39 @@ EXT="$1"
 HEAT_LOC='/data/input'
 #rm grayscale_heatmaps/*
 
+# We get the images based on what's in this heatmap_txt folder
 for files in ${HEAT_LOC}/color-*; do
-  
+
   if [ ${files[0]} == "/data/input/color-*" ]; then
     error_exit "There are no color files." $LINENO
   fi
-  
-  # Get slide id
+
+  # From the color- prefix, divine the matching slide (minus the extension)
   SVS=$(echo ${files} | awk -F'/' '{print $NF}' | awk -F'color-' '{print $2}')
 
   # Find the unmodified heatmap
   PRED=$(ls -1 ${HEAT_LOC}/prediction-${SVS}* | grep -v low_res)
   COLOR=${files}
 
-  SVS_FILE=`ls -1 ${SLIDES}/${SVS}*.$EXT | head -n 1` || error_exit $LINENO
-  if [ ! -f ${SVS_FILE} ]; then
-    echo ${SLIDES}/${SVS}.XXXX.$EXT does not exist.
-    continue;
+  # Find the slide
+  if [[ ! $(ls -1 ${SLIDES}/${SVS}*.$EXT) ]]; then
+    echo "${SLIDES}/${SVS}.XXXX.$EXT does not exist."
+  else
+    SVS_FILE=$(ls -1 ${SLIDES}/${SVS}*.svs | head -n 1)
   fi
 
+  if [[ -z "$SVS_FILE" ]]; then
+    echo "Could not find slide."
+    continue
+  fi
+
+  # Get width and height
   WIDTH=$(openslide-show-properties ${SVS_FILE} |
     grep "openslide.level\[0\].width" | awk '{print substr($2,2,length($2)-2);}')
   HEIGHT=$(openslide-show-properties ${SVS_FILE} |
     grep "openslide.level\[0\].height" | awk '{print substr($2,2,length($2)-2);}')
 
+  # Generate CSVs and PNGs.
   python /app/src/get_grayscale_heatmaps/get_grayscale_heatmap.py ${SVS} ${WIDTH} ${HEIGHT} ${PRED} ${COLOR}
 done
 #cp ./grayscale_heatmaps/* ${GRAYSCALE_HEATMAPS_PATH}/
