@@ -42,7 +42,7 @@ def get_metadata(filename):
 
 
 # Data contains feature probabilities as RGB values per location
-def get_data(filename):
+def get_data(filename, data_type):
     my_obj = {
         "data": {
             "locations": {
@@ -55,6 +55,16 @@ def get_data(filename):
     }
     df = pd.read_csv(filename, skiprows=[0])  # Skipping metadata row
     n_rows, n_columns = df.shape
+
+    if len(data_type) > 0:
+        d_type = data_type
+    else:
+        if n_columns > 5:
+            d_type = "normalized range of values"
+        else:
+            d_type = "probability"
+
+    my_obj["type"] = d_type
     my_obj["data"]["locations"]["i"] = df["i"].tolist()  # Get column data
     my_obj["data"]["locations"]["j"] = df["j"].tolist()
 
@@ -77,15 +87,24 @@ def save_file(filename, data1, data2):
 
 
 if __name__ == '__main__':
-    input = sys.argv[1]  # Folder path
-    output = sys.argv[2]
+    if len(sys.argv) > 1:
+        input = sys.argv[1]  # Folder path
+        output = sys.argv[2]
+        data_type = sys.argv[3]  # Tell me what the data is.
+    else:
+        print("Please set 3 arguments: input path, output path, and data type [probability or range]")
+        exit(1)
+    files_exist = False
     for file in os.listdir(input):
         if file.endswith(".csv"):
+            files_exist = True
             f = os.path.join(input, file)
-            # print(f)
             meta = get_metadata(f)
-            data = get_data(f)
+            data = get_data(f, data_type)
             f = f.replace("csv", "json")
             f = f.replace(input, output)
             save_file(f, meta, data)
-    print('Done.')
+    if not files_exist:
+        print("There were no files to process.")
+    else:
+        print('Done.')

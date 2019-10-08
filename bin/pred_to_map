@@ -26,4 +26,4 @@ slide='/data/wsi'
 python /app/src/png_to_csv_map.py "$output" "$mydir" "$slide" "$ext"
 
 # CSV to JSON
-python /app/src/csv_to_json.py "$mydir" "$output"
+python /app/src/csv_to_json.py "$mydir" "$output" "probability"
