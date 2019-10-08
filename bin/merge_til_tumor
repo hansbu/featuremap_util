@@ -22,7 +22,6 @@ echo "Combine..."
 python /app/src/merge_cancer_til/gen_cancer_tils_pathDB_combined_maps.py "$mydir" "$ext"
 if [[ $? -eq 0 ]]; then
   # Step 2
-  output='/data/output'
   uuid=$(python -c 'import sys,uuid; sys.stdout.write(uuid.uuid4().hex)') || uuid=$(uuidgen)
   mydir2="/tmp/$uuid"
   mkdir -p "$mydir2"
