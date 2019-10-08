@@ -6,6 +6,7 @@ import sys
 import pandas as pd
 
 
+# Expecting a file in pseudo-csv format (1st row is json)
 def get_metadata(filename):
     my_obj = {}
     try:
@@ -40,6 +41,7 @@ def get_metadata(filename):
     return my_obj
 
 
+# Data contains feature probabilities as RGB values per location
 def get_data(filename):
     my_obj = {
         "data": {
@@ -75,7 +77,7 @@ def save_file(filename, data1, data2):
 
 
 if __name__ == '__main__':
-    input = sys.argv[1]
+    input = sys.argv[1]  # Folder path
     output = sys.argv[2]
     for file in os.listdir(input):
         if file.endswith(".csv"):
