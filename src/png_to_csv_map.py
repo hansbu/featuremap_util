@@ -95,7 +95,7 @@ def main(png_fol, out_fol, wsi_fol, slide_ext):
                     continue
             else:
                 # Filepath empty
-                print('File not found: ', filepath)
+                print("Can't find any slides: ", filepath)
                 continue
 
         w_wsi, h_wsi, w_patch, h_patch = get_patch_size(filepath)
