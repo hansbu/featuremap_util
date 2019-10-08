@@ -6,7 +6,8 @@ error_exit() {
   echo "Line $2"
   exit 1
 }
-EXT="$1"
+ext="$1"
+output_dir="$2"
 
 #source ../../conf/variables.sh
 
@@ -36,8 +37,8 @@ for files in ${HEAT_LOC}/color-*; do
   COLOR=${files}
 
   # Find the slide
-  if [[ ! $(ls -1 ${SLIDES}/${SVS}*.$EXT) ]]; then
-    echo "${SLIDES}/${SVS}.XXXX.$EXT does not exist."
+  if [[ ! $(ls -1 ${SLIDES}/${SVS}*.$ext) ]]; then
+    echo "${SLIDES}/${SVS}.XXXX.$ext does not exist."
   else
     SVS_FILE=$(ls -1 ${SLIDES}/${SVS}*.svs | head -n 1)
   fi
@@ -54,7 +55,7 @@ for files in ${HEAT_LOC}/color-*; do
     grep "openslide.level\[0\].height" | awk '{print substr($2,2,length($2)-2);}')
 
   # Generate CSVs and PNGs.
-  python /app/src/get_grayscale_heatmaps/get_grayscale_heatmap.py ${SVS} ${WIDTH} ${HEIGHT} ${PRED} ${COLOR}
+  python /app/src/get_grayscale_heatmaps/get_grayscale_heatmap.py ${SVS} ${WIDTH} ${HEIGHT} ${PRED} ${COLOR} ${output_dir}
 done
 #cp ./grayscale_heatmaps/* ${GRAYSCALE_HEATMAPS_PATH}/
 
