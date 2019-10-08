@@ -44,11 +44,11 @@ if [[ $? -eq 0 ]]; then
       rm -rf "$mydir"
       rm -rf "$mydir1"
     else
-      echo "step 3 failed $?"
+      echo "step 3 failed"
     fi
   else
-    echo "step 2 failed $?"
+    echo "step 2 failed"
   fi
 else
-  echo "step 1 failed $?"
+  echo "step 1 failed"
 fi
