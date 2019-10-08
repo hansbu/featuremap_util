@@ -33,7 +33,7 @@ def get_metadata(filename):
     except FileNotFoundError as e:
         print(filename, ":", e.strerror)
         exit(1)
-    except:
+    except:  # catch all exceptions
         print("Unexpected error:", sys.exc_info()[0])
         raise
     # print(my_obj["metadata"])
