@@ -31,6 +31,7 @@ mkdir -p "$mydir1"
 if [[ $? -eq 0 ]]; then
   # Step 2
   # PNG to CSV
+  slide='/data/wsi'
   python /app/src/png_to_csv_map.py "$mydir" "$mydir1" "$slide" "$ext"
   if [[ $? -eq 0 ]]; then
     # Step 3

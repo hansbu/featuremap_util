@@ -11,7 +11,7 @@ output_dir="$2"
 
 #source ../../conf/variables.sh
 
-# This is just used for getting wsi height and width
+# This is used for getting wsi height and width
 SLIDES='/data/wsi'
 
 # Locations of unmodified heatmaps
@@ -25,7 +25,7 @@ HEAT_LOC='/data/input'
 # We get the images based on what's in this heatmap_txt folder
 for files in ${HEAT_LOC}/color-*; do
 
-  if [ ${files[0]} == "/data/input/color-*" ]; then
+  if [ ${files[0]} == "${HEAT_LOC}/color-*" ]; then
     error_exit "There are no color files." $LINENO
   fi
 
