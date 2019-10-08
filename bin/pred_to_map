@@ -40,7 +40,7 @@ if [[ $? -eq 0 ]]; then
     python /app/src/csv_to_json.py "$mydir1" "$output" "probability"
     if [[ $? -eq 0 ]]; then
       if [[ "$do_png" -eq 1 ]]; then
-        cp "$mydir/*.png" "$output"
+        find -iname "$mydir/*.png" -exec cp {} "$output" \;
       fi
       rm -rf "$mydir"
       rm -rf "$mydir1"
