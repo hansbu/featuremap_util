@@ -75,14 +75,21 @@ def get_data(filename, data_type):
     return my_obj
 
 
-def save_file(filename, data1, data2):
+def save_file(fName, data1, data2):
     final_obj = {}
     final_obj.update(data1)
     final_obj.update(data2)
     json_str = json.dumps(final_obj)
-    f = open(filename, "w")
-    f.write(json_str)
-    f.close()
+    try:
+        ff = open(fName, "w")  # open file in write mode
+        ff.write(json_str)  # write to file
+        ff.close()
+    except IOError as e:
+        errno, strerror = e.args
+        print("I/O error({0}): {1}".format(errno, strerror))
+    except:
+        print("Unexpected error:", sys.exc_info()[0])
+        raise
     # print('OUT: ' + filename)
 
 
