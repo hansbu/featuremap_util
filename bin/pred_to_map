@@ -9,7 +9,7 @@ if [[ "$#" -eq "0" ]]; then
   exit 1
 fi
 ext="$1"
-if [[ "$#" -eq "2" ]]; then
+if [[ "$#" -eq 2 ]]; then
   do_png=1
 else
   do_png=0
