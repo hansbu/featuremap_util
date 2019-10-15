@@ -28,5 +28,4 @@ im[:, :, 1] = 255 * necr
 im[:, :, 2] = 255 * get_tissue_map(whiteness)
 
 im = np.swapaxes(im, 0, 1)
-# misc.imsave('grayscale_heatmaps/{}.png'.format(svs_name), im)
 imageio.imwrite(output_dir + '/{}.png'.format(svs_name), im)

@@ -9,7 +9,8 @@ def get_whiteness_im(white_file):
     b = data[:, 3]
     r = data[:, 4]
 
-    step = (x.min() + x.max()) / len(np.unique(x))
+    calc_width = x.min() + x.max()
+    step = calc_width / len(np.unique(x))
 
     x = np.round((x + step / 2.0) / step)
     y = np.round((y + step / 2.0) / step)

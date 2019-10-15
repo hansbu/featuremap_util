@@ -20,7 +20,6 @@ SLIDES='/data/wsi'
 # For example:
 #   prediction-TCGA-NJ-A55O-01Z-00-DX1
 HEAT_LOC='/data/input'
-#rm grayscale_heatmaps/*
 
 # We get the images based on what's in this heatmap_txt folder
 for files in ${HEAT_LOC}/color-*; do
@@ -57,6 +56,5 @@ for files in ${HEAT_LOC}/color-*; do
   # Generate CSVs and PNGs.
   python /app/src/get_grayscale_heatmaps/get_grayscale_heatmap.py ${SVS} ${WIDTH} ${HEIGHT} ${PRED} ${COLOR} ${output_dir}
 done
-#cp ./grayscale_heatmaps/* ${GRAYSCALE_HEATMAPS_PATH}/
 
 exit 0
