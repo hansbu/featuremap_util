@@ -7,6 +7,7 @@ import numpy as np
 from get_labeled_im import *
 from get_tissue_map import *
 from get_wbr_im import *
+from write_featuremap import *
 
 # Check num args
 if len(sys.argv) != 7:
@@ -24,7 +25,7 @@ output_dir = sys.argv[6]
 
 # Get data from files
 pred, necr, patch_size = get_labeled_im(pred_file)
-whiteness, blackness, redness = get_wbr_im(color_file)
+whiteness, blackness, redness, xx, yy = get_wbr_im(color_file)
 
 # Initialize m x n x c matrix
 im = np.zeros((pred.shape[0], pred.shape[1], 3), dtype=np.uint8)
@@ -35,4 +36,6 @@ im[:, :, 1] = 255 * necr  # Green channel
 im[:, :, 2] = 255 * get_tissue_map(whiteness)  # Blue channel
 
 im = np.swapaxes(im, 0, 1)  # Transpose
-imageio.imwrite(output_dir + '/{}.png'.format(svs_name), im)  # Write
+filename = output_dir + '/{}.png'.format(svs_name)
+# write_featuremap(im, [width, height], patch_size, xx, yy, filename)
+imageio.imwrite(filename, im)
