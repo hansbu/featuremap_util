@@ -6,7 +6,7 @@ import numpy as np
 
 from get_labeled_im import *
 from get_tissue_map import *
-from get_whiteness_im import *
+from get_wbr_im import *
 
 # Check num args
 if len(sys.argv) != 7:
@@ -24,7 +24,7 @@ output_dir = sys.argv[6]
 
 # Get data from files
 pred, necr = get_labeled_im(pred_file)
-whiteness, blackness, redness = get_whiteness_im(color_file)
+whiteness, blackness, redness = get_wbr_im(color_file)
 
 # Initialize m x n x c matrix
 im = np.zeros((pred.shape[0], pred.shape[1], 3), dtype=np.uint8)
