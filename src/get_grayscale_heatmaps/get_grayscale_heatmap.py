@@ -1,3 +1,4 @@
+import os
 import sys
 
 import imageio
@@ -5,6 +6,11 @@ import numpy as np
 from get_labeled_im import *
 from get_tissue_map import *
 from get_whiteness_im import *
+
+if len(sys.argv) == 1:
+    base = os.path.basename(__file__)
+    print('\nUsage:\n    python ' + base + ' svs_name width height pred_file color_file output_dir')
+    exit(1)
 
 svs_name = sys.argv[1]
 width = int(sys.argv[2])
