@@ -25,7 +25,7 @@ output_dir = sys.argv[6]
 
 # Get data from files
 pred, necr, patch_size = get_labeled_im(pred_file)
-whiteness, blackness, redness, xx, yy = get_wbr_im(color_file)
+whiteness, blackness, redness = get_wbr_im(color_file)
 
 # Initialize m x n x c matrix
 im = np.zeros((pred.shape[0], pred.shape[1], 3), dtype=np.uint8)
@@ -37,5 +37,5 @@ im[:, :, 2] = 255 * get_tissue_map(whiteness)  # Blue channel
 
 im = np.swapaxes(im, 0, 1)  # Transpose
 filename = output_dir + '/{}.png'.format(svs_name)
-# write_featuremap(im, [width, height], patch_size, xx, yy, filename)
+# write_featuremap(im, [width, height], patch_size, filename)
 imageio.imwrite(filename, im)

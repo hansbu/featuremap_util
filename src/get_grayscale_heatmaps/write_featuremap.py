@@ -3,7 +3,9 @@ import sys
 
 
 # Write featuremap
-def write_featuremap(im, dim, patch_size, x_arr, y_arr, filename):
+def write_featuremap(im, dim, patch_size, filename):
+    newlistX = [x for x in range(im.shape[0])]
+    newlistY = [y for y in range(im.shape[1])]
     my_obj = {
         "metadata": {
             "img_width": dim[0],
@@ -15,8 +17,8 @@ def write_featuremap(im, dim, patch_size, x_arr, y_arr, filename):
         },
         "data": {
             "locations": {
-                "i": x_arr.astype(int).tolist(),
-                "j": y_arr.astype(int).tolist()
+                "i": newlistX,
+                "j": newlistY
             },
             "features": {
                 'TIL': im[:, :, 0].tolist(),
