@@ -2,8 +2,8 @@ import numpy as np
 
 
 # Extract data from color file
-def get_wbr_im(white_file):
-    data = np.loadtxt(white_file).astype(np.float32)
+def get_wbr_im(color_file):
+    data = np.loadtxt(color_file).astype(np.float32)
     # 5 columns in color file
     x = data[:, 0]  # x
     y = data[:, 1]  # y
