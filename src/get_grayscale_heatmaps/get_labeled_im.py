@@ -27,4 +27,4 @@ def get_labeled_im(pred_f):
         iml[int(x[iter] - 1), int(y[iter] - 1)] = l[iter]
         imn[int(x[iter] - 1), int(y[iter] - 1)] = n[iter]
 
-    return iml, imn
+    return iml, imn, patch_size

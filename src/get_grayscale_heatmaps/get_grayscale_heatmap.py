@@ -23,7 +23,7 @@ color_file = sys.argv[5]
 output_dir = sys.argv[6]
 
 # Get data from files
-pred, necr = get_labeled_im(pred_file)
+pred, necr, patch_size = get_labeled_im(pred_file)
 whiteness, blackness, redness = get_wbr_im(color_file)
 
 # Initialize m x n x c matrix
