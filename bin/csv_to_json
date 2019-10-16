@@ -2,4 +2,4 @@
 
 input='/data/input'
 output='/data/output'
-python /app/src/csv_to_json.py "$input" "$output" "probability"
+python /app/src/csv_to_json.py "$input" "$output"

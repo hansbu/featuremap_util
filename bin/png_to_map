@@ -22,7 +22,7 @@ if [[ $? -eq 0 ]]
 then
   # Step 2
   output='/data/output'
-  python /app/src/csv_to_json.py "$mydir" "$output" "probability"
+  python /app/src/csv_to_json.py "$mydir" "$output"
   if [[ $? -eq 0 ]]
   then
     rm -rf "$mydir"
