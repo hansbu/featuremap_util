@@ -1,14 +1,13 @@
 import os
 import sys
-# from write_featuremap import *
-from datetime import datetime
-
-import imageio
+# import imageio
 import numpy as np
+from datetime import datetime
 
 from get_labeled_im import *
 from get_tissue_map import *
 from get_wbr_im import *
+from write_featuremap import *
 
 startTime = datetime.now()
 
@@ -39,7 +38,8 @@ im[:, :, 1] = 255 * necr  # Green channel
 im[:, :, 2] = 255 * get_tissue_map(whiteness)  # Blue channel
 
 im = np.swapaxes(im, 0, 1)  # Transpose
+
 filename = output_dir + '/{}.png'.format(svs_name)
-# write_featuremap(im, [width, height], patch_size, filename)
-imageio.imwrite(filename, im)
+# imageio.imwrite(filename, im)
 print(base + ':', datetime.now() - startTime)
+write_featuremap(im, [width, height], filename)

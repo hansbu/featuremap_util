@@ -1,39 +1,48 @@
 import json
+import os
 import sys
+from datetime import datetime
 
 
 # Write featuremap
-def write_featuremap(im, dim, patch_size, filename):
-    newlistX = []
-    newlistY = []
-    for x in range(0, im.shape[0]):
-        for y in range(0, im.shape[1]):
-            newlistX.append(x)
-            newlistY.append(y)
+def write_featuremap(im, dim, filename):
+    startTime = datetime.now()
+    png_w = im.shape[1]
+    png_h = im.shape[0]
 
-    # newlistX = [x for x in range(im.shape[0])]
-    # newlistY = [y for y in range(im.shape[1])]
+    x_arr = []
+    y_arr = []
+    r_arr = []
+    g_arr = []
+    b_arr = []
 
-    print('shape', im.shape)
+    for x in range(0, png_w):
+        for y in range(0, png_h):
+            if not (im[y, x][0] == 0 and im[y, x][1] == 0 and im[y, x][2] == 0):
+                x_arr.append(x)
+                y_arr.append(y)
+                r_arr.append(int(im[y, x][0]))
+                g_arr.append(int(im[y, x][1]))
+                b_arr.append(int(im[y, x][2]))
 
     my_obj = {
         "metadata": {
             "img_width": dim[0],
             "img_height": dim[1],
-            "png_w": im.shape[0],
-            "png_h": im.shape[1],
-            "patch_w": patch_size,
-            "patch_h": patch_size
+            "png_w": png_w,
+            "png_h": png_h,
+            "patch_w": 200,
+            "patch_h": 200
         },
         "data": {
             "locations": {
-                "i": newlistX,
-                "j": newlistY
+                "i": x_arr,
+                "j": y_arr
             },
             "features": {
-                'TIL': im[:, :, 0].tolist(),
-                'Cancer': im[:, :, 1].tolist(),
-                'Tissue': im[:, :, 2].tolist()
+                'TIL': r_arr,
+                'Cancer': g_arr,
+                'Tissue': b_arr
             }
         }
     }
@@ -49,3 +58,4 @@ def write_featuremap(im, dim, patch_size, filename):
     except:
         print("Unexpected error:", sys.exc_info()[0])
         raise
+    print(os.path.basename(__file__) + ':', datetime.now() - startTime)
