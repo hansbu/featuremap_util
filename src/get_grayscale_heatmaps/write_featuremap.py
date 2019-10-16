@@ -4,8 +4,18 @@ import sys
 
 # Write featuremap
 def write_featuremap(im, dim, patch_size, filename):
-    newlistX = [x for x in range(im.shape[0])]
-    newlistY = [y for y in range(im.shape[1])]
+    newlistX = []
+    newlistY = []
+    for x in range(0, im.shape[0]):
+        for y in range(0, im.shape[1]):
+            newlistX.append(x)
+            newlistY.append(y)
+
+    # newlistX = [x for x in range(im.shape[0])]
+    # newlistY = [y for y in range(im.shape[1])]
+
+    print('shape', im.shape)
+
     my_obj = {
         "metadata": {
             "img_width": dim[0],

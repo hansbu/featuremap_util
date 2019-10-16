@@ -1,5 +1,7 @@
 import os
 import sys
+# from write_featuremap import *
+from datetime import datetime
 
 import imageio
 import numpy as np
@@ -7,11 +9,12 @@ import numpy as np
 from get_labeled_im import *
 from get_tissue_map import *
 from get_wbr_im import *
-from write_featuremap import *
+
+startTime = datetime.now()
 
 # Check num args
+base = os.path.basename(__file__)
 if len(sys.argv) != 7:
-    base = os.path.basename(__file__)
     print('\nUsage:\n    python ' + base + ' svs_name width height pred_file color_file output_dir')
     sys.exit(1)
 
@@ -37,5 +40,6 @@ im[:, :, 2] = 255 * get_tissue_map(whiteness)  # Blue channel
 
 im = np.swapaxes(im, 0, 1)  # Transpose
 filename = output_dir + '/{}.png'.format(svs_name)
-write_featuremap(im, [width, height], patch_size, filename)
-# imageio.imwrite(filename, im)
+# write_featuremap(im, [width, height], patch_size, filename)
+imageio.imwrite(filename, im)
+print(base + ':', datetime.now() - startTime)

@@ -10,6 +10,7 @@ import csv
 import glob
 import os
 import sys
+from datetime import datetime
 
 import cv2
 import openslide
@@ -75,6 +76,8 @@ def get_patch_size1(filepath, w_png, h_png):
 
 
 def main(png_fol, out_fol, wsi_fol, slide_ext):
+    startTime = datetime.now()
+
     # Iterate through pngs in input folder
     fns = [f for f in os.listdir(png_fol) if '.png' in f]
     for idx, filename in enumerate(fns):
@@ -132,7 +135,8 @@ def main(png_fol, out_fol, wsi_fol, slide_ext):
                         feature_writer.writerow([x, y, png[y, x][2], png[y, x][1], png[y, x][0]])
 
         f.close()
-    print('Done.')
+
+    print(os.path.basename(__file__) + ':', datetime.now() - startTime)
 
 
 if __name__ == "__main__":
@@ -147,4 +151,5 @@ if __name__ == "__main__":
     output_folder = sys.argv[2]  # output
     slide_folder = sys.argv[3]  # slide
     slide_ext = sys.argv[4]  # tif, svs, etc.
+
     main(input_folder, output_folder, slide_folder, '.' + slide_ext)

@@ -2,6 +2,7 @@ import csv
 import json
 import os
 import sys
+from datetime import datetime
 
 import pandas as pd
 
@@ -94,24 +95,29 @@ def save_file(fName, data1, data2):
 
 
 if __name__ == '__main__':
-    if len(sys.argv) > 1:
-        input = sys.argv[1]  # Folder path
-        output = sys.argv[2]
-        data_type = sys.argv[3]  # Tell me what the data is.
-    else:
-        print("Please set 3 arguments: input path, output path, and data type [probability or range]")
+    base = os.path.basename(__file__)
+
+    # Check num args
+    if len(sys.argv) < 4:
+        print('\nUsage:\n    python ' + base + ' input_folder output_folder data_type [probability or range]')
         sys.exit(1)
+
+    startTime = datetime.now()
+    # Get args
+    input_folder = sys.argv[1]  # Folder path
+    output_folder = sys.argv[2]
+    data_type = sys.argv[3]  # Tell me what the data is.
     files_exist = False
-    for file in os.listdir(input):
+    for file in os.listdir(input_folder):
         if file.endswith(".csv"):
             files_exist = True
-            f = os.path.join(input, file)
+            f = os.path.join(input_folder, file)
             meta = get_metadata(f)
             data = get_data(f, data_type)
             f = f.replace("csv", "json")
-            f = f.replace(input, output)
+            f = f.replace(input_folder, output_folder)
             save_file(f, meta, data)
     if not files_exist:
         print("There were no files to process.")
-    else:
-        print('Done.')
+
+    print(base + ':', datetime.now() - startTime)
