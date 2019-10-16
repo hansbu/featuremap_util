@@ -1,12 +1,12 @@
 import json
 import os
 import sys
-from datetime import datetime
+# from datetime import datetime
 
 
 # Write featuremap
 def write_featuremap(im, dim, filename):
-    startTime = datetime.now()
+    # startTime = datetime.now()
     png_w = im.shape[1]
     png_h = im.shape[0]
 
@@ -58,4 +58,4 @@ def write_featuremap(im, dim, filename):
     except:
         print("Unexpected error:", sys.exc_info()[0])
         raise
-    print(os.path.basename(__file__) + ':', datetime.now() - startTime)
+    # print(os.path.basename(__file__) + ':', datetime.now() - startTime)

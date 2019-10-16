@@ -2,14 +2,14 @@ import os
 import sys
 # import imageio
 import numpy as np
-from datetime import datetime
+# from datetime import datetime
 
 from get_labeled_im import *
 from get_tissue_map import *
 from get_wbr_im import *
 from write_featuremap import *
 
-startTime = datetime.now()
+# startTime = datetime.now()
 
 # Check num args
 base = os.path.basename(__file__)
@@ -41,5 +41,5 @@ im = np.swapaxes(im, 0, 1)  # Transpose
 
 filename = output_dir + '/{}.png'.format(svs_name)
 # imageio.imwrite(filename, im)
-print(base + ':', datetime.now() - startTime)
+# print(base + ':', datetime.now() - startTime)
 write_featuremap(im, [width, height], filename)
