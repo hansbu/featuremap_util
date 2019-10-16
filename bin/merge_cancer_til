@@ -9,12 +9,13 @@ if [[ "$#" -eq "0" ]]; then
   exit 1
 fi
 
-ext="$1"
 output='/data/output'
+slide='/data/wsi'
+ext="$1"
 
 SECONDS=0
 
-/app/src/prediction_to_map/get_grayscale_heatmap.sh "$ext" "$output"
+python /app/src/merge_cancer_til/gen_cancer_tils_pathDB_combined_maps.py "$output" "$ext"
 
 ELAPSED="Elapsed: $(($SECONDS / 3600))hrs $(($SECONDS / 60 % 60))min $(($SECONDS % 60))sec"
 echo "$ELAPSED"

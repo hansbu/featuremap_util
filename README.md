@@ -57,7 +57,7 @@ We've got til predictions and cancer predictions.  Here's what to do.  Run the f
 cd input; mkdir til cancer
 # put input files in input/til and input/cancer
 # then run
-nohup docker exec quip-maputil merge_til_tumor [svs | tif | ext] &
+nohup docker exec quip-maputil merge_cancer_til [svs | tif | ext] &
 ```
 
 

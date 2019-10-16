@@ -7,7 +7,7 @@ import numpy as np
 from get_labeled_im import *
 from get_tissue_map import *
 from get_wbr_im import *
-from write_featuremap import *
+from fmap.write_featuremap import *
 
 # startTime = datetime.now()
 

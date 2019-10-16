@@ -1,13 +1,21 @@
 #!/usr/bin/env python
 import gc
 import multiprocessing as mp
+
 import os
 import sys
-
-import cv2
 import numpy as np
+import cv2
 import openslide
+
 from dice_auc_cal import *
+from fmap.write_featuremap import *
+
+# Check num args
+base = os.path.basename(__file__)
+if len(sys.argv) != 3:
+    print('\nUsage:\n    python ' + base + ' output_folder slide_extension')
+    sys.exit(1)
 
 start_ind = 0
 end_ind = 10000
@@ -17,12 +25,12 @@ cancer_pred_fol = '/data/input/cancer'  # folder path containing the prediction-
 til_thresholded = '/data/input/til'  # folder path containing the prediction-xxx files for TILs
 svs_fol = '/data/wsi'  # folder path containing all the WSIs
 # til_cancer_fol = '/data/output'  # output folder
-til_cancer_fol = sys.argv[1]  # temp. output folder
+output_folder = sys.argv[1]  # temp. output folder
 slide_extension = '.' + sys.argv[2]  # extension of the slide, can be .svs, .tiff, etc.
 # done changing arguments
 
-if not os.path.exists(til_cancer_fol):
-    os.mkdir(til_cancer_fol)
+if not os.path.exists(output_folder):
+    os.mkdir(output_folder)
 
 cancer_preds_files = [x for x in os.listdir(cancer_pred_fol) if
                       'prediction-' in x and 'low_res' not in x]  # work on high res only
@@ -60,8 +68,8 @@ def process_file(pred_fn):
     if not os.path.exists(os.path.join(til_thresholded, 'prediction-' + slide_id)):
         print('\tTIL pred file not exists: ', slide_id)
         return
-    res_file = os.path.join(til_cancer_fol, slide_id + '.csv')
-    res_file_png = os.path.join(til_cancer_fol, slide_id + '.png')
+    res_file = os.path.join(output_folder, slide_id + '.csv')
+    res_file_png = os.path.join(output_folder, slide_id + '.png')
     if os.path.exists(res_file):
         print('\tfile generated')
         return
@@ -167,7 +175,8 @@ def process_file(pred_fn):
     tissue[tissue < 12] = 0
     tissue[tissue >= 12] = 255
     combined[:, :, 0] = tissue
-    cv2.imwrite(res_file_png, combined)
+    # cv2.imwrite(res_file_png, combined)
+    write_featuremap(combined, [width, height], res_file_png)
 
 
 pool = mp.Pool(processes=8)
