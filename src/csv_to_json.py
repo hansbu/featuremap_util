@@ -33,7 +33,7 @@ def get_metadata(filename):
         csv_file.close()
     except FileNotFoundError as e:
         print(filename, ":", e.strerror)
-        exit(1)
+        sys.exit(1)
     except:  # catch all exceptions
         print("Unexpected error:", sys.exc_info()[0])
         raise
@@ -100,7 +100,7 @@ if __name__ == '__main__':
         data_type = sys.argv[3]  # Tell me what the data is.
     else:
         print("Please set 3 arguments: input path, output path, and data type [probability or range]")
-        exit(1)
+        sys.exit(1)
     files_exist = False
     for file in os.listdir(input):
         if file.endswith(".csv"):

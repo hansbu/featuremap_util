@@ -37,5 +37,5 @@ im[:, :, 2] = 255 * get_tissue_map(whiteness)  # Blue channel
 
 im = np.swapaxes(im, 0, 1)  # Transpose
 filename = output_dir + '/{}.png'.format(svs_name)
-# write_featuremap(im, [width, height], patch_size, filename)
-imageio.imwrite(filename, im)
+write_featuremap(im, [width, height], patch_size, filename)
+# imageio.imwrite(filename, im)
