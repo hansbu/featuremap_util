@@ -136,6 +136,13 @@ def main(png_fol, out_fol, wsi_fol, slide_ext):
 
 
 if __name__ == "__main__":
+    # Check num args
+    if len(sys.argv) != 5:
+        base = os.path.basename(__file__)
+        print('\nUsage:\n    python ' + base + ' input_folder output_folder slide_folder slide_ext [tif, svs, etc]')
+        sys.exit(1)
+
+    # Get arguments
     input_folder = sys.argv[1]  # input
     output_folder = sys.argv[2]  # output
     slide_folder = sys.argv[3]  # slide
