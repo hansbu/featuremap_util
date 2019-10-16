@@ -9,7 +9,7 @@ import cv2
 import openslide
 
 from dice_auc_cal import *
-from fmap.write_featuremap import *
+from fmap.featuremap import *
 
 # Check num args
 base = os.path.basename(__file__)
@@ -176,7 +176,7 @@ def process_file(pred_fn):
     tissue[tissue >= 12] = 255
     combined[:, :, 0] = tissue
     # cv2.imwrite(res_file_png, combined)
-    write_featuremap(combined, [width, height], res_file_png)
+    write(combined, [width, height], res_file_png)
 
 
 pool = mp.Pool(processes=8)

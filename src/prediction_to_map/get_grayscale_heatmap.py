@@ -7,7 +7,7 @@ import numpy as np
 from get_labeled_im import *
 from get_tissue_map import *
 from get_wbr_im import *
-from fmap.write_featuremap import *
+from fmap.featuremap import *
 
 # startTime = datetime.now()
 
@@ -42,4 +42,4 @@ im = np.swapaxes(im, 0, 1)  # Transpose
 filename = output_dir + '/{}.png'.format(svs_name)
 # imageio.imwrite(filename, im)
 # print(base + ':', datetime.now() - startTime)
-write_featuremap(im, [width, height], filename)
+write(im, [width, height], filename)

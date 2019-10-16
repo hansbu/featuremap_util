@@ -5,7 +5,7 @@ import sys
 
 
 # Write featuremap
-def write_featuremap(im, dim, filename):
+def write(im, dim, filename):
     # startTime = datetime.now()
     png_w = im.shape[1]
     png_h = im.shape[0]
