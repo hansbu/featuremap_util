@@ -1,5 +1,3 @@
 #!/usr/bin/env bash
 
-input='/data/input'
-output='/data/output'
-python /app/src/csv_to_json.py "$input" "$output"
+python /app/src/csv_to_json.py "/data/input" "/data/output"

@@ -4,10 +4,14 @@ import sys
 import numpy as np
 # from datetime import datetime
 
-from get_labeled_im import *
-from get_tissue_map import *
-from get_wbr_im import *
-from fmap.featuremap import *
+from calc.get_labeled_im import *
+from calc.get_tissue_map import get_tissue_map
+from calc.get_wbr_im import get_wbr_im
+from calc.featuremap import write_map_from_matrix
+
+# from pprint import pprint
+
+# pprint(sys.path)
 
 # startTime = datetime.now()
 
@@ -42,4 +46,4 @@ im = np.swapaxes(im, 0, 1)  # Transpose
 filename = output_dir + '/{}.png'.format(svs_name)
 # imageio.imwrite(filename, im)
 # print(base + ':', datetime.now() - startTime)
-write(im, [width, height], filename)
+write_map_from_matrix(im, [width, height], filename)

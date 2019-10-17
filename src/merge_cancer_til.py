@@ -8,25 +8,24 @@ import numpy as np
 import cv2
 import openslide
 
-from dice_auc_cal import *
-from fmap.featuremap import *
+from calc.dice_auc_cal import *
+from calc.featuremap import write_map_from_matrix
 
 # Check num args
 base = os.path.basename(__file__)
-if len(sys.argv) != 3:
-    print('\nUsage:\n    python ' + base + ' output_folder slide_extension')
+if len(sys.argv) != 6:
+    print('\nUsage:\n    python ' + base + ' cancer_pred_fol til_pred_fol output_fol wsi_fol slide_ext')
     sys.exit(1)
 
 start_ind = 0
 end_ind = 10000
 
 # input the path to cancer heatmap_txt and TIL heatmap_txt. Change the folders here!
-cancer_pred_fol = '/data/input/cancer'  # folder path containing the prediction-xxx files for cancer
-til_thresholded = '/data/input/til'  # folder path containing the prediction-xxx files for TILs
-svs_fol = '/data/wsi'  # folder path containing all the WSIs
-# til_cancer_fol = '/data/output'  # output folder
-output_folder = sys.argv[1]  # temp. output folder
-slide_extension = '.' + sys.argv[2]  # extension of the slide, can be .svs, .tiff, etc.
+cancer_pred_fol = sys.argv[1]  # folder path containing the prediction-xxx files for cancer
+til_pred_fol = sys.argv[2]     # folder path containing the prediction-xxx files for TILs
+wsi_fol = sys.argv[4]          # folder path containing all the WSIs
+output_folder = sys.argv[3]    # output folder
+slide_extension = '.' + sys.argv[5]  # extension of the slide, can be .svs, .tiff, etc.
 # done changing arguments
 
 if not os.path.exists(output_folder):
@@ -49,7 +48,7 @@ cancer_preds_files = cancer_preds_files[start_ind:end_ind]
 def process_file(pred_fn):
     slide_id = pred_fn.split('prediction-')[1].split('.')[0]
     cancer_png_path = os.path.join(cancer_pred_fol, pred_fn)
-    svs_path = os.path.join(svs_fol, slide_id + slide_extension)
+    svs_path = os.path.join(wsi_fol, slide_id + slide_extension)
     print(pred_fn)
     # if slide_id not in cancer_only: return
 
@@ -65,7 +64,7 @@ def process_file(pred_fn):
     width = oslide.dimensions[0]
     height = oslide.dimensions[1]
 
-    if not os.path.exists(os.path.join(til_thresholded, 'prediction-' + slide_id)):
+    if not os.path.exists(os.path.join(til_pred_fol, 'prediction-' + slide_id)):
         print('\tTIL pred file not exists: ', slide_id)
         return
     res_file = os.path.join(output_folder, slide_id + '.csv')
@@ -115,14 +114,14 @@ def process_file(pred_fn):
     scale_h = height / iml_u.shape[0]
     print('\tscale: ', scale_w, scale_h)
 
-    tils = np.loadtxt(os.path.join(til_thresholded, 'prediction-' + slide_id))
+    tils = np.loadtxt(os.path.join(til_pred_fol, 'prediction-' + slide_id))
     print('\tshape of tils: ', tils.shape)
     patch_til = max(abs(tils[1, 1] - tils[0, 1]), abs(tils[1, 0] - tils[0, 0]))
     patch_w_half, patch_h_half = int(patch_til / scale_w / 2), int(patch_til / scale_h / 2)
 
     print('\tpatch til size, window_half: ', patch_til, patch_w_half, patch_h_half)
 
-    colors = np.loadtxt(os.path.join(til_thresholded, 'color-' + slide_id))
+    colors = np.loadtxt(os.path.join(til_pred_fol, 'color-' + slide_id))
     tissue = colors[:, 2]
     colors = None
     cancer = None
@@ -176,7 +175,7 @@ def process_file(pred_fn):
     tissue[tissue >= 12] = 255
     combined[:, :, 0] = tissue
     # cv2.imwrite(res_file_png, combined)
-    write(combined, [width, height], res_file_png)
+    write_map_from_matrix(combined, [width, height], res_file_png)
 
 
 pool = mp.Pool(processes=8)

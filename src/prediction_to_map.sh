@@ -54,7 +54,7 @@ for files in ${HEAT_LOC}/color-*; do
     grep "openslide.level\[0\].height" | awk '{print substr($2,2,length($2)-2);}')
 
   # Generate CSVs and PNGs.
-  python /app/src/prediction_to_map/get_grayscale_heatmap.py ${SVS} ${WIDTH} ${HEIGHT} ${PRED} ${COLOR} ${output_dir}
+  python /app/src/prediction_to_map.py ${SVS} ${WIDTH} ${HEIGHT} ${PRED} ${COLOR} ${output_dir}
 done
 
 exit 0

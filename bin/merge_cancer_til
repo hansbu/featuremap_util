@@ -9,13 +9,11 @@ if [[ "$#" -eq "0" ]]; then
   exit 1
 fi
 
-output='/data/output'
-slide='/data/wsi'
 ext="$1"
 
 SECONDS=0
 
-python /app/src/merge_cancer_til/gen_cancer_tils_pathDB_combined_maps.py "$output" "$ext"
+python /app/src/merge_cancer_til.py  "/data/input/cancer" "/data/input/til" "/data/output" "/data/wsi" "$ext"
 
 ELAPSED="Elapsed: $(($SECONDS / 3600))hrs $(($SECONDS / 60 % 60))min $(($SECONDS % 60))sec"
 echo "$ELAPSED"
