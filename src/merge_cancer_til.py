@@ -175,7 +175,7 @@ def process_file(pred_fn):
     tissue[tissue >= 12] = 255
     combined[:, :, 0] = tissue
     # cv2.imwrite(res_file_png, combined)
-    write_map_from_matrix(combined, [width, height], res_file_png)
+    write_map_from_matrix(combined, [width, height], res_file_png, True)
 
 
 pool = mp.Pool(processes=8)

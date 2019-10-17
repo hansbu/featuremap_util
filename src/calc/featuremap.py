@@ -1,11 +1,11 @@
 import json
-import os
+# import os
 import sys
 # from datetime import datetime
 
 
-# Write featuremap
-def write_map_from_matrix(im, dim, filename):
+# Write feature map
+def write_map_from_matrix(im, dim, filename, foo=False):
     # startTime = datetime.now()
     png_w = im.shape[1]
     png_h = im.shape[0]
@@ -16,14 +16,18 @@ def write_map_from_matrix(im, dim, filename):
     g_arr = []
     b_arr = []
 
+    idx = [0, 1, 2]
+    if foo:
+        idx = [2, 1, 0]  # bgr
+
     for x in range(0, png_w):
         for y in range(0, png_h):
             if not (im[y, x][0] == 0 and im[y, x][1] == 0 and im[y, x][2] == 0):
                 x_arr.append(x)
                 y_arr.append(y)
-                r_arr.append(int(im[y, x][0]))
-                g_arr.append(int(im[y, x][1]))
-                b_arr.append(int(im[y, x][2]))
+                r_arr.append(int(im[y, x][idx[0]]))
+                g_arr.append(int(im[y, x][idx[1]]))
+                b_arr.append(int(im[y, x][idx[2]]))
 
     my_obj = {
         "metadata": {
