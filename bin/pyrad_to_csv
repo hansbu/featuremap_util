@@ -1,5 +1,3 @@
 #!/usr/bin/env bash
 
-# pyrad_to_map generates a csv
-# because a csv *was* a map
 python /app/src/pyrad_to_map.py "/data/input" "/data/output"
