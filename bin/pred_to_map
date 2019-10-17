@@ -9,12 +9,9 @@ if [[ "$#" -eq "0" ]]; then
   exit 1
 fi
 
-ext="$1"
-output='/data/output'
-
 SECONDS=0
 
-/app/src/prediction_to_map.sh "$ext" "$output"
+/app/src/prediction_to_map.sh "$1" "/data/output"
 
 ELAPSED="Elapsed: $(($SECONDS / 3600))hrs $(($SECONDS / 60 % 60))min $(($SECONDS % 60))sec"
 echo "$ELAPSED"
