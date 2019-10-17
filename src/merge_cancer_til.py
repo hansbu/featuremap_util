@@ -40,8 +40,6 @@ cancer_preds_files.sort()
 if end_ind > len(cancer_preds_files):
     end_ind = len(cancer_preds_files)
 cancer_preds_files = cancer_preds_files[start_ind:end_ind]
-
-
 # cancer_only = set(['TCGA-3C-AALI-01Z-00-DX1'])
 
 
@@ -135,39 +133,40 @@ def process_file(pred_fn):
     c_pos = 0
     c_neg = 0
     c_bou = 0
-    with open(res_file, 'w') as f:
-        for ind, til in enumerate(tils):
-            x, y, _, _ = tuple(til)
-            x, y, patch_w_half, patch_h_half = int(x / scale_w), int(y / scale_h), int(patch_til / scale_w / 2), int(
-                patch_til / scale_h / 2)
+    # with open(res_file, 'w') as f:
+    #     Do enumeration below
+    #     print('\tpos, neg, bou: ', c_pos, c_neg, c_bou)
 
-            if y - patch_h_half < 0 or y + patch_h_half >= iml_u.shape[0] or x - patch_w_half < 0 or x + patch_w_half >= \
-                    iml_u.shape[1]:
+    for ind, til in enumerate(tils):
+        x, y, _, _ = tuple(til)
+        x, y, patch_w_half, patch_h_half = int(x / scale_w), int(y / scale_h), int(patch_til / scale_w / 2), int(
+            patch_til / scale_h / 2)
+
+        if y - patch_h_half < 0 or y + patch_h_half >= iml_u.shape[0] or x - patch_w_half < 0 or x + patch_w_half >= \
+                iml_u.shape[1]:
+            res = 0
+            c_neg += 1
+            # f.writelines('{},{},{},{},{}\n'.format(int(til[0]), int(til[1]), 0, 0, 0))
+        else:
+            window = iml_u[y - patch_h_half:y + patch_h_half, x - patch_w_half: x + patch_w_half]
+            window_sum = np.sum(window)
+            delta = 0.0
+            if window_sum <= window.shape[0] * window.shape[1] * delta:  # this is non-cancer patch
                 res = 0
                 c_neg += 1
-                f.writelines('{},{},{},{},{}\n'.format(int(til[0]), int(til[1]), 0, 0, 0))
-            else:
-                window = iml_u[y - patch_h_half:y + patch_h_half, x - patch_w_half: x + patch_w_half]
-                window_sum = np.sum(window)
-                delta = 0.0
-                if window_sum <= window.shape[0] * window.shape[1] * delta:  # this is non-cancer patch
-                    res = 0
-                    c_neg += 1
-                elif window_sum >= window.shape[0] * window.shape[1] * (1 - delta):  # this is cancer patch
-                    res = 1
-                    c_pos += 1
-                else:  # this is patch on the boundary
-                    res = 2
-                    c_bou += 1
-                f.writelines(
-                    '{},{},{},{},{}\n'.format(int(til[0]), int(til[1]), int(til[2]), int(res), int(tissue[ind] > 12)))
+            elif window_sum >= window.shape[0] * window.shape[1] * (1 - delta):  # this is cancer patch
+                res = 1
+                c_pos += 1
+            else:  # this is patch on the boundary
+                res = 2
+                c_bou += 1
+            # f.writelines(
+            #     '{},{},{},{},{}\n'.format(int(til[0]), int(til[1]), int(til[2]), int(res), int(tissue[ind] > 12)))
 
-                isTil = til[2] if til[3] < 0.5 else 0  # filter Necrosis
-                combined[y_inds[ind], x_inds[ind], :] = np.array(
-                    [tissue[ind], int(iml[int((y - patch_h_half) / up), int((x - patch_w_half) / up)] * 255),
-                     int(isTil * 255)])
-
-        print('\tpos, neg, bou: ', c_pos, c_neg, c_bou)
+            isTil = til[2] if til[3] < 0.5 else 0  # filter Necrosis
+            combined[y_inds[ind], x_inds[ind], :] = np.array(
+                [tissue[ind], int(iml[int((y - patch_h_half) / up), int((x - patch_w_half) / up)] * 255),
+                 int(isTil * 255)])
 
     tissue = combined[:, :, 0]
     tissue = cv2.GaussianBlur(tissue, (5, 5), 0)  # blurring the tissue channel
