@@ -9,6 +9,7 @@ docker exec quip-maputil png_to_map [svs | tif | ext]
 
 
 <br>
+
 ### CSV to featuremap
 The FeatureMap application accepts data in JSON format.  Let's say we have a "legacy" map, i.e. one with a JSON "header", and then columns `i, j, R, G, B`.  And we want to convert them to proper featuremaps.  Here's how:
 
