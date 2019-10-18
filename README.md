@@ -10,11 +10,10 @@ Or, you may want to generate a featuremap from a spreadsheet containing pyradiom
 
 Input files go in input directory!<br>
 Program will output files to the output folder you specified!
+<br>
 
 
 ## Usage
-<br>
-
 
 ### Prediction files to featuremap
 Let's say you have a bunch of prediction files (color-\*, prediction-\*) and you want to generate featuremaps.  Run the following command, substitute `[svs | tif | ext]` with the file extension of the slide.
@@ -47,4 +46,4 @@ docker exec quip-maputil pyrad_to_map
 <br>
 
 
-View other, less frequently used functions.
+<a href="https://github.com/SBU-BMI/featuremap_util/blob/master/README1.md" target="_blank">View</a> other, less frequently used functions.
