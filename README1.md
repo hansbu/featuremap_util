@@ -1,4 +1,7 @@
+# Featuremap Utility
+
 ## Usage, cont'd.
+<br>
 
 ### PNG to featuremap
 Let's say we don't have the prediction files, but we have a bunch of PNGs.  Here's how to generate featuremaps.  Again, run the following command, substitute `[svs | tif | ext]` with the file extension of the slide.
