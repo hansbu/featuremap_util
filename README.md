@@ -1,3 +1,7 @@
+## Featuremap Utility
+Generate featuremaps.  Most of the time you'll be converting prediction files to featuremap files.
+Or, you may want to generate a featuremap from a spreadsheet containing pyradiomics data.
+
 ### Build and run
 
 ```
@@ -8,12 +12,17 @@ Input files go in input directory!<br>
 Program will output files to the output folder you specified!
 
 
+## Usage
+<br>
+
+
 ### Prediction files to featuremap
-Let's say you have a bunch of prediction files (color-\*, prediction-\*) and you want to genereate featuremaps.  Run the following command, substitute `[svs | tif | ext]` with the file extension of the slide.
+Let's say you have a bunch of prediction files (color-\*, prediction-\*) and you want to generate featuremaps.  Run the following command, substitute `[svs | tif | ext]` with the file extension of the slide.
 
 ```
 nohup docker exec quip-maputil pred_to_map [svs | tif | ext] &
 ```
+<br>
 
 
 ### Prediction file merge
@@ -26,6 +35,7 @@ cd input; mkdir til cancer
 # then run
 nohup docker exec quip-maputil merge_cancer_til [svs | tif | ext] &
 ```
+<br>
 
 
 ### Pyradiomics to featuremap
@@ -34,3 +44,7 @@ We've generated a bunch of pyradiomics csv files.  Here's how to create featurem
 ```
 docker exec quip-maputil pyrad_to_map
 ```
+<br>
+
+
+View other, less frequently used functions.
