@@ -1,8 +1,8 @@
-## Featuremap Utility
+# Featuremap Utility
 Generate featuremaps.  Most of the time you'll be converting prediction files to featuremap files.
 Or, you may want to generate a featuremap from a spreadsheet containing pyradiomics data.
 
-### Build and run
+## Build and run
 
 ```
 ./build.sh /path/to/input/dir /path/to/output/dir /path/to/wsi/dir
