@@ -1,8 +1,16 @@
+# macOS
+.DS_Store
+
+# JetBrains IDE
+.idea
+
+# VisualStudio Code
+.vscode
+
+# Project
 input/
 output/
 wsi/
-.DS_Store/
-.idea/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
