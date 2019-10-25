@@ -102,10 +102,7 @@ def process(input, output):
                     'fg_firstorder_Mean', 'bg_firstorder_Mean', 'fg_firstorder_RootMeanSquared',
                     'bg_firstorder_RootMeanSquared', 'fg_glcm_Autocorrelation', 'bg_glcm_Autocorrelation',
                     'nuclei_ratio', 'nuclei_average_area', 'nuclei_average_perimeter']
-            column_names_to_normalize = [
-                'fg_firstorder_Mean', 'bg_firstorder_Mean', 'fg_firstorder_RootMeanSquared',
-                'bg_firstorder_RootMeanSquared', 'fg_glcm_Autocorrelation', 'bg_glcm_Autocorrelation', 'nuclei_ratio',
-                'nuclei_average_area', 'nuclei_average_perimeter']
+            column_names_to_normalize = cols[2:]
             column_names = ",".join(cols)
             df = norm_ij(df)
 
