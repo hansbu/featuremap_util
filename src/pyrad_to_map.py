@@ -20,6 +20,7 @@ def normalize(df, column_names_to_normalize):
         df.apply(pd.to_numeric)
         # Normalize
         x = df[column_names_to_normalize].values  # returns a numpy array
+        # normalize 0 to 255
         min_max_scaler = preprocessing.MinMaxScaler(feature_range=(0, 255))
         x_scaled = min_max_scaler.fit_transform(x)
         df_temp = pd.DataFrame(x_scaled, columns=column_names_to_normalize, index=df.index)
@@ -34,7 +35,7 @@ def normalize(df, column_names_to_normalize):
 
 def get_meta(df):
     # Create first row JSON
-    imw = df['image_width'].iloc[0]
+    imw = df['image_width'].iloc[0]  # at location 0, first row
     imh = df['image_height'].iloc[0]
     pw = df['patch_width'].iloc[0]
     ph = df['patch_height'].iloc[0]
@@ -51,10 +52,10 @@ def get_meta(df):
 
 def get_columns(df):
     # Normalize to PNG dimensions
-    df['i'] = df['patch_x'] / df['patch_width']
+    df['i'] = df['patch_x'] / df['patch_width']  # divide each x in the series by patch width
     df['j'] = df['patch_y'] / df['patch_height']
 
-    # Round up
+    # Round up to whole numbers
     df.i = np.ceil(df.i).astype(int)
     df.j = np.ceil(df.j).astype(int)
 
@@ -65,7 +66,7 @@ def get_columns(df):
     column_names = ['i', 'j']
     for c in cols:
         if c not in to_be_removed:
-            column_names.append(c)
+            column_names.append(c)  # column that we want
             if c not in 'i' and c not in 'j':
                 column_names_to_normalize.append(c)
     return column_names, column_names_to_normalize
@@ -98,8 +99,16 @@ def process(input, output):
             with open(fout, 'a') as f:
                 df.to_csv(f, mode='a', header=False, index=False)
 
+    exit(0)
+
 
 if __name__ == "__main__":
+    # Check num args
+    base = os.path.basename(__file__)
+    if len(sys.argv) != 3:
+        prRed('\nUsage:\n    python ' + base + ' input_dir output_dir')
+        sys.exit(1)
+
     input = sys.argv[1]  # input
     output = sys.argv[2]  # output
     process(input, output)
