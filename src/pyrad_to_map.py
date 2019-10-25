@@ -33,6 +33,18 @@ def normalize(df, column_names_to_normalize):
     return df
 
 
+def norm_ij(df):
+    # Normalize to PNG dimensions
+    df['i'] = df['patch_x'] / df['patch_width']  # divide each x in the series by patch width
+    df['j'] = df['patch_y'] / df['patch_height']
+
+    # Round up to whole numbers
+    df.i = np.ceil(df.i).astype(int)
+    df.j = np.ceil(df.j).astype(int)
+
+    return df
+
+
 def get_meta(df):
     # Create first row JSON
     imw = df['image_width'].iloc[0]  # at location 0, first row
@@ -50,26 +62,26 @@ def get_meta(df):
     return obj
 
 
-def get_columns(df):
-    # Normalize to PNG dimensions
-    df['i'] = df['patch_x'] / df['patch_width']  # divide each x in the series by patch width
-    df['j'] = df['patch_y'] / df['patch_height']
-
-    # Round up to whole numbers
-    df.i = np.ceil(df.i).astype(int)
-    df.j = np.ceil(df.j).astype(int)
-
-    to_be_removed = ['case_id', 'image_width', 'image_height', 'mpp_x', 'mpp_y', 'patch_x', 'patch_y', 'patch_width',
-                     'patch_height', 'datetime', 'i', 'j']
-    column_names_to_normalize = []
-    cols = list(df.columns)
-    column_names = ['i', 'j']
-    for c in cols:
-        if c not in to_be_removed:
-            column_names.append(c)  # column that we want
-            if c not in 'i' and c not in 'j':
-                column_names_to_normalize.append(c)
-    return column_names, column_names_to_normalize
+# def get_columns(df):
+#     # Normalize to PNG dimensions
+#     df['i'] = df['patch_x'] / df['patch_width']  # divide each x in the series by patch width
+#     df['j'] = df['patch_y'] / df['patch_height']
+#
+#     # Round up to whole numbers
+#     df.i = np.ceil(df.i).astype(int)
+#     df.j = np.ceil(df.j).astype(int)
+#
+#     to_be_removed = ['case_id', 'image_width', 'image_height', 'mpp_x', 'mpp_y', 'patch_x', 'patch_y', 'patch_width',
+#                      'patch_height', 'datetime', 'i', 'j']
+#     column_names_to_normalize = []
+#     cols = list(df.columns)
+#     column_names = ['i', 'j']
+#     for c in cols:
+#         if c not in to_be_removed:
+#             column_names.append(c)  # column that we want
+#             if c not in 'i' and c not in 'j':
+#                 column_names_to_normalize.append(c)
+#     return column_names, column_names_to_normalize
 
 
 def process(input, output):
@@ -81,10 +93,21 @@ def process(input, output):
                 df = pd.read_csv(fin)
                 var = df['image_width'].iloc[0]  # catch stuff that isn't pyradiomics
             except Exception as ex:
+                prRed('image_width column not found')
                 continue
             meta = get_meta(df)
-            cols, column_names_to_normalize = get_columns(df)
+            print('breakpoint')
+            # cols, column_names_to_normalize = get_columns(df)
+            cols = ['i', 'j',
+                    'fg_firstorder_Mean', 'bg_firstorder_Mean', 'fg_firstorder_RootMeanSquared',
+                    'bg_firstorder_RootMeanSquared', 'fg_glcm_Autocorrelation', 'bg_glcm_Autocorrelation',
+                    'nuclei_ratio', 'nuclei_average_area', 'nuclei_average_perimeter']
+            column_names_to_normalize = [
+                'fg_firstorder_Mean', 'bg_firstorder_Mean', 'fg_firstorder_RootMeanSquared',
+                'bg_firstorder_RootMeanSquared', 'fg_glcm_Autocorrelation', 'bg_glcm_Autocorrelation', 'nuclei_ratio',
+                'nuclei_average_area', 'nuclei_average_perimeter']
             column_names = ",".join(cols)
+            df = norm_ij(df)
 
             # Write first row JSON
             fout = os.path.join(output, filename)
