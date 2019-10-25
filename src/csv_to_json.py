@@ -2,9 +2,14 @@ import csv
 import json
 import os
 import sys
-from datetime import datetime
 
 import pandas as pd
+
+
+# from datetime import datetime
+
+
+def prRed(skk): print("\033[91m {}\033[00m".format(skk))
 
 
 # Expecting a file in pseudo-csv format (1st row is json)
@@ -90,10 +95,10 @@ if __name__ == '__main__':
 
     # Check num args
     if len(sys.argv) < 3:
-        print('\nUsage:\n    python ' + base + ' input_folder output_folder')
+        prRed('\nUsage:\n    python ' + base + ' input_folder output_folder')
         sys.exit(1)
 
-    startTime = datetime.now()
+    # startTime = datetime.now()
     # Get args
     input_folder = sys.argv[1]  # Folder path
     output_folder = sys.argv[2]
@@ -108,6 +113,6 @@ if __name__ == '__main__':
             f = f.replace(input_folder, output_folder)
             save_file(f, meta, data)
     if not files_exist:
-        print("There were no files to process.")
+        prRed("There were no files to process.")
 
-    print(base + ':', datetime.now() - startTime)
+    # print(base + ':', datetime.now() - startTime)
