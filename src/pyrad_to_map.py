@@ -96,7 +96,6 @@ def process(input, output):
                 prRed('image_width column not found')
                 continue
             meta = get_meta(df)
-            print('breakpoint')
             # cols, column_names_to_normalize = get_columns(df)
             cols = ['i', 'j',
                     'fg_firstorder_Mean', 'bg_firstorder_Mean', 'fg_firstorder_RootMeanSquared',
