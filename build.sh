@@ -16,8 +16,8 @@ IMAGE_NAME='quip_distro_maputil'
 CONTAINER_NAME="quip-maputil"
 
 build() {
-  docker stop $IMAGE_NAME; docker rm $IMAGE_NAME || echo ''
-  # docker rmi $IMAGE_NAME || echo ''
+  docker stop $CONTAINER_NAME; docker rm $CONTAINER_NAME || echo ''
+  docker rmi $IMAGE_NAME || echo ''
   docker build -t $IMAGE_NAME .
   docker run --name "$CONTAINER_NAME" -v $1:/data/input -v $2:/data/output -v $3:/data/wsi -itd "$IMAGE_NAME"
 }
