@@ -97,10 +97,15 @@ def process(input, output):
                 continue
             meta = get_meta(df)
             # cols, column_names_to_normalize = get_columns(df)
+            
             cols = ['i', 'j',
                     'fg_firstorder_Mean', 'bg_firstorder_Mean', 'fg_firstorder_RootMeanSquared',
                     'bg_firstorder_RootMeanSquared', 'fg_glcm_Autocorrelation', 'bg_glcm_Autocorrelation',
                     'nuclei_ratio', 'nuclei_average_area', 'nuclei_average_perimeter']
+
+            # cols = ['i', 'j', 'patch_area_micro', 'nuclei_area_micro', 'nuclei_ratio', 'nuclei_average_area',
+            #         'nuclei_average_perimeter']
+
             column_names_to_normalize = cols[2:]
             column_names = ",".join(cols)
             df = norm_ij(df)
