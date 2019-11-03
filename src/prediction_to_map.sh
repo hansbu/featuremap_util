@@ -9,26 +9,24 @@ error_exit() {
 ext="$1"
 output_dir="$2"
 
-#source ../../conf/variables.sh
-
-# This is used for getting wsi height and width
+# This is used for getting wsi width and height
 SLIDES='/data/wsi'
 
 # Locations of unmodified heatmaps
 # The filenames of the unmodifed heatmaps should be:
 #   prediction-${slide_id}
 # For example:
-#   prediction-TCGA-NJ-A55O-01Z-00-DX1
+#   prediction-TCGA-XX-XXXX-01Z-00-DX1
 HEAT_LOC='/data/input'
 
-# We get the images based on what's in this heatmap_txt folder
+# We get the slides based on what's in this heatmap_txt folder
 for files in ${HEAT_LOC}/color-*; do
 
   if [ ${files[0]} == "${HEAT_LOC}/color-*" ]; then
     error_exit "There are no color files." $LINENO
   fi
 
-  # From the color- prefix, divine the matching slide (minus the extension)
+  # From the color- file name, deduce the matching slide name (minus the extension)
   SVS=$(echo ${files} | awk -F'/' '{print $NF}' | awk -F'color-' '{print $2}')
 
   # Find the unmodified heatmap
