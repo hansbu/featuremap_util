@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# Modified from github/hansbu gen_cancer_tils_pathDB_combined_maps.py
 import gc
 import multiprocessing as mp
 
