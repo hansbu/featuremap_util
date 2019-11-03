@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# Experimental.
 import json
 import os
 import sys
@@ -62,6 +61,7 @@ def get_meta(df):
     return obj
 
 
+# This function is for utilizing ALL columns in spreadsheet:
 # def get_columns(df):
 #     # Normalize to PNG dimensions
 #     df['i'] = df['patch_x'] / df['patch_width']  # divide each x in the series by patch width
@@ -96,13 +96,17 @@ def process(input, output):
                 prRed('image_width column not found')
                 continue
             meta = get_meta(df)
+            
+            # For utilizing all columns:
             # cols, column_names_to_normalize = get_columns(df)
             
+            # For the chosen 9 columns:
             cols = ['i', 'j',
                     'fg_firstorder_Mean', 'bg_firstorder_Mean', 'fg_firstorder_RootMeanSquared',
                     'bg_firstorder_RootMeanSquared', 'fg_glcm_Autocorrelation', 'bg_glcm_Autocorrelation',
                     'nuclei_ratio', 'nuclei_average_area', 'nuclei_average_perimeter']
 
+            # For a deprecated version of pyradiomics spreadsheet:
             # cols = ['i', 'j', 'patch_area_micro', 'nuclei_area_micro', 'nuclei_ratio', 'nuclei_average_area',
             #         'nuclei_average_perimeter']
 
