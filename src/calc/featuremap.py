@@ -5,7 +5,7 @@ import sys
 
 
 # Write feature map
-def write_map_from_matrix(im, dim, filename, foo=False):
+def write_map_from_matrix(im, dim, filename, bgr=False):
     # startTime = datetime.now()
     png_w = im.shape[1]
     png_h = im.shape[0]
@@ -17,11 +17,12 @@ def write_map_from_matrix(im, dim, filename, foo=False):
     b_arr = []
 
     idx = [0, 1, 2]
-    if foo:
+    if bgr:
         idx = [2, 1, 0]  # bgr
 
     for x in range(0, png_w):
         for y in range(0, png_h):
+            # Ignore [0,0,0] b/c it will be generated at construction of JSON file to viewable web image
             if not (im[y, x][0] == 0 and im[y, x][1] == 0 and im[y, x][2] == 0):
                 x_arr.append(x)
                 y_arr.append(y)
