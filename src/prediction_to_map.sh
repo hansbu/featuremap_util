@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# Modified from quip_lymphocyte/get_grayscale_heatmap.sh
 
 PROGNAME=$(basename "$0")
 error_exit() {
