@@ -105,7 +105,7 @@ def process(input, output):
                     'bg_firstorder_RootMeanSquared', 'fg_glcm_Autocorrelation', 'bg_glcm_Autocorrelation',
                     'nuclei_ratio', 'nuclei_average_area', 'nuclei_average_perimeter']
 
-            # For a deprecated version of pyradiomics spreadsheet:
+            # For an experimental version of pyradiomics spreadsheet:
             # cols = ['i', 'j', 'patch_area_micro', 'nuclei_area_micro', 'nuclei_ratio', 'nuclei_average_area',
             #         'nuclei_average_perimeter']
 
