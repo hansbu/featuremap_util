@@ -1,3 +1,4 @@
+# Modified from quip_lymphocyte/get_grayscale_heatmap.py
 import os
 import sys
 # import imageio
