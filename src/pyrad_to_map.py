@@ -13,19 +13,18 @@ def prRed(skk): print("\033[91m {}\033[00m".format(skk))
 
 def normalize(df, column_names_to_normalize):
     try:
-        # Clean up non-numeric values
-        # df.replace(r'[a-zA-Z%]', '0', regex=True, inplace=True)
+        # Convert non-numeric value 'None' to zero
         df.replace(r'None', '0', regex=True, inplace=True)
         df.apply(pd.to_numeric)
-        # Normalize
         x = df[column_names_to_normalize].values  # returns a numpy array
-        # normalize 0 to 255
+        # Normalize 0 to 255
         min_max_scaler = preprocessing.MinMaxScaler(feature_range=(0, 255))
         x_scaled = min_max_scaler.fit_transform(x)
         df_temp = pd.DataFrame(x_scaled, columns=column_names_to_normalize, index=df.index)
-        # Merge back to original
+        # Merge back into original dataframe
         df[column_names_to_normalize] = df_temp
     except ValueError as ex:
+        # Catch outlier non-numeric values and exit
         prRed('FOUND NON-NUMERIC VALUES IN DATA COLUMNS')
         prRed(ex)
         exit(1)
