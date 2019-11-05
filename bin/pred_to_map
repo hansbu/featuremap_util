@@ -11,7 +11,7 @@ fi
 
 SECONDS=0
 
-/app/src/prediction_to_map.sh "$1" "/data/output"
+/app/src/prediction_to_map.sh "/data/input" "/data/output" "/data/wsi" "$1"
 
 ELAPSED="Elapsed: $(($SECONDS / 3600))hrs $(($SECONDS / 60 % 60))min $(($SECONDS % 60))sec"
 echo "$ELAPSED"

@@ -7,18 +7,29 @@ error_exit() {
   echo "Line $2"
   exit 1
 }
-ext="$1"
-output_dir="$2"
 
-# This is used for getting wsi width and height
-SLIDES='/data/wsi'
+if [ "$#" -ne 4 ]; then
+  echo "Usage: $0 /data/input /data/output /data/wsi svs" >&2
+  exit 1
+fi
 
 # Locations of unmodified heatmaps
 # The filenames of the unmodifed heatmaps should be:
 #   prediction-${slide_id}
 # For example:
 #   prediction-TCGA-XX-XXXX-01Z-00-DX1
-HEAT_LOC='/data/input'
+HEAT_LOC="$1"
+echo "$HEAT_LOC"
+
+output_dir="$2"
+echo "$output_dir"
+
+# This is used for getting wsi width and height
+SLIDES="$3"
+echo "$SLIDES"
+
+ext="$4"
+echo "$ext"
 
 # We get the slides based on what's in this heatmap_txt folder
 for files in ${HEAT_LOC}/color-*; do
