@@ -49,7 +49,7 @@ for files in ${HEAT_LOC}/color-*; do
   if [[ ! $(ls -1 ${SLIDES}/${SVS}*.$ext) ]]; then
     echo "${SLIDES}/${SVS}.XXXX.$ext does not exist."
   else
-    SVS_FILE=$(ls -1 ${SLIDES}/${SVS}*.svs | head -n 1)
+    SVS_FILE=$(ls -1 ${SLIDES}/${SVS}*.$ext | head -n 1)
   fi
 
   if [[ -z "$SVS_FILE" ]]; then
